@@ -15,9 +15,9 @@ function App() {
         <Routes>
           <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
             <Route path='login' element={<LoginPage />} />
+            <Route path='/' element={<HomePage />} />
           </Route>
           <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
-            <Route path='/' element={<HomePage />} />
           </Route>
           <Route path="*" element={<NoFoundComponent />} />
         </Routes>

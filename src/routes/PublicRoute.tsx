@@ -1,15 +1,22 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 interface IPublicRouteProps {
   isAuthenticated: boolean;
 }
 
 function PublicRoute({ isAuthenticated }: IPublicRouteProps) {  
-  if (isAuthenticated) {
+  const { pathname } = useLocation();
+  if (isAuthenticated && pathname === '/login') {
       return <Navigate to="/" replace />
   }
 
-  return <Outlet />
+  return (
+    <>
+      <Navbar isAuthenticated={isAuthenticated} />
+      <Outlet />
+    </>
+  )
 }
 
 export default PublicRoute;
