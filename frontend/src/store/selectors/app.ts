@@ -7,3 +7,5 @@ const appSelector = (state: RootState) => state.app;
 export const getAppPage = createSelector(appSelector, appState => get(appState, 'page', 1));
 export const getAppPerPage = createSelector(appSelector, appState => get(appState, 'per_page', 14));
 export const getGists = createSelector(appSelector, appState => get(appState, 'gists', null));
+export const getClientId = createSelector(appSelector, appState => get(appState, 'client_id', ''));
+export const getRedirectUri = createSelector(appSelector, appState => get(appState, 'redirect_uri', ''));

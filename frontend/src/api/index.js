@@ -1,16 +1,19 @@
 import axios from 'axios';
 
-const API = axios.create({
+const GITHUB_API = axios.create({
   baseURL: 'https://api.github.com',
   headers: {
       'accept': 'application/vnd.github+json',
   },
 });
+const PROXY_API = axios.create({
+  baseURL: process.env.REACT_APP_PROXY_SERVER,
+});
 
 // Add a request interceptor
-API.interceptors.request.use(config => {
+GITHUB_API.interceptors.request.use(config => {
     // Do something before request is sent
-    console.log(config);
+    // console.log(config);
     return config;
   }, function (error) {
     // Do something with request error
@@ -18,7 +21,7 @@ API.interceptors.request.use(config => {
   });
 
 // Add a response interceptor
-API.interceptors.response.use(response => {
+GITHUB_API.interceptors.response.use(response => {
     // Do something with response data
     return response;
   }, function (error) {
@@ -26,4 +29,4 @@ API.interceptors.response.use(response => {
     return Promise.reject(error);
   });
 
-export default API;
+export { GITHUB_API, PROXY_API };

@@ -1,8 +1,23 @@
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useAppDispatch } from "../store";
+import { getClientId, getRedirectUri } from "../store/selectors/app";
+import { resetAuthData } from "../store/slices/auth";
+
 interface INavbarProps{
   isAuthenticated: boolean;
 }
 
 function Navbar({isAuthenticated}: INavbarProps) {
+  const dispatch = useAppDispatch();
+  const client_id =  useSelector(getClientId);
+  const redirect_uri =  useSelector(getRedirectUri);
+
+  const handleLogout = () => {
+    dispatch(resetAuthData());
+    window.localStorage.clear();
+  }
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -27,11 +42,11 @@ function Navbar({isAuthenticated}: INavbarProps) {
                   </a>
                 </li>
                 <li><a>Settings</a></li>
-                <li><a>Logout</a></li>
+                <li onClick={handleLogout}><a>Logout</a></li>
               </ul>
             </div> :
             <div className="navbar-end">
-              <a className="btn">Login</a>
+              <Link to={`https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}`} className="btn">Login</Link>
             </div>
         }
       </div>
