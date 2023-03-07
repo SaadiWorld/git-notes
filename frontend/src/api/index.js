@@ -4,7 +4,7 @@ import store from '../store';
 const GITHUB_API = axios.create({
   baseURL: 'https://api.github.com',
   headers: {
-      'accept': 'application/vnd.github+json',
+    'accept': 'application/vnd.github+json',
   },
 });
 const PROXY_API = axios.create({
@@ -14,7 +14,6 @@ const PROXY_API = axios.create({
 // Add a request interceptor
 GITHUB_API.interceptors.request.use(request => {
   const token = store.getState().auth.token || window.localStorage.getItem('token');
-  console.log(token);
   if (token) {
     request.headers['Authorization'] = `Bearer ${token}`;
   }
