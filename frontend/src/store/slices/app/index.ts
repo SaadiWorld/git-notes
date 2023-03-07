@@ -10,7 +10,7 @@ interface IInitialState {
 }
 
 const INITIAL_STATE: IInitialState = { 
-  page: 2, 
+  page: 1, 
   per_page: 14, 
   gists: null,
   client_id: process.env.REACT_APP_CLIENT_ID,

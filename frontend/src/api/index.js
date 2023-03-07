@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '../store';
 
 const GITHUB_API = axios.create({
   baseURL: 'https://api.github.com',
@@ -11,14 +12,17 @@ const PROXY_API = axios.create({
 });
 
 // Add a request interceptor
-GITHUB_API.interceptors.request.use(config => {
-    // Do something before request is sent
-    // console.log(config);
-    return config;
-  }, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  });
+GITHUB_API.interceptors.request.use(request => {
+  const token = store.getState().auth.token || window.localStorage.getItem('token');
+  console.log(token);
+  if (token) {
+    request.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return request;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
 
 // Add a response interceptor
 GITHUB_API.interceptors.response.use(response => {
