@@ -1,7 +1,7 @@
 import { RootState } from "..";
 import get from 'lodash.get'
 import { createSelector } from "@reduxjs/toolkit";
-import { INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../types/common";
+import { GIST_VIEW, INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../types/common";
 
 const appSelector = (state: RootState) => state.app;
 
@@ -11,3 +11,4 @@ export const getTotalGists = createSelector(appSelector, appState => get(appStat
 export const getGists = createSelector(appSelector, appState => get(appState, 'gists', null));
 export const getClientId = createSelector(appSelector, appState => get(appState, 'client_id', ''));
 export const getRedirectUri = createSelector(appSelector, appState => get(appState, 'redirect_uri', ''));
+export const getGistView = createSelector(appSelector, appState => get(appState, 'gist_view', GIST_VIEW.LIST));

@@ -1,12 +1,9 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Column, useTable } from 'react-table';
-import { getAppPerPage, getGists, getTotalGists } from "../../store/selectors/app";
+import { getGists } from "../../../store/selectors/app";
 import { format } from "date-fns";
-import Avatar from "../Avatar";
-import Pagination from "./Pagination";
-import { useAppDispatch } from "../../store";
-import { setPage } from "../../store/slices/app";
+import Avatar from "../../Avatar";
 
 interface IGistInfo {
   avatar: string;
@@ -18,10 +15,6 @@ interface IGistInfo {
 }
 
 function Table() {
-  const dispatch = useAppDispatch();
-  // const page = useSelector(getAppPage);
-  const perPage = useSelector(getAppPerPage);
-  const totalRows = useSelector(getTotalGists);
   const gists = useSelector(getGists);
   const columns = useMemo<Column<IGistInfo>[]>(
     () => [
@@ -72,14 +65,10 @@ function Table() {
     rows: pages,
   } = useTable({ columns, data, manualPagination: true })
 
-  const handlePageChange = (page: number) => {
-    dispatch(setPage(page));
-  }
-
   return (
     <div className="overflow-x-auto w-full">
       <table className="table w-full" {...getTableProps()}>
-        <thead>
+        <thead id="table-header">
           { headerGroups.map(headerGroup => (
               // Apply the header row props
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -107,7 +96,7 @@ function Table() {
                 row.cells.map(cell => {
                   // Apply the cell props
                   return (
-                    <td className="max-w-1/2" {...cell.getCellProps()}>
+                    <td {...cell.getCellProps()}>
                       {// Render the cell contents
                         cell.column.Header === 'Avatar' ?
                         <Avatar url={cell.value} /> :
@@ -121,12 +110,6 @@ function Table() {
           })}
         </tbody>
       </table>
-      <Pagination
-        totalRows={totalRows}
-        rowsPerPage={perPage}
-        pageChangeHandler={handlePageChange}
-      />
-
     </div>
   )
 }

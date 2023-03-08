@@ -1,9 +1,9 @@
 import { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './components/HomePage';
+import HomePage from './pages/Home';
 import Loader from './components/Loader';
-import LoginPage from './components/LoginPage';
+import LoginPage from './pages/Login';
 import NoFoundComponent from './components/NoFoundComponent';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
