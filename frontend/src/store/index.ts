@@ -1,4 +1,4 @@
-import { configureStore, createAsyncThunk } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './slices'
 import { useDispatch } from 'react-redux'
 
