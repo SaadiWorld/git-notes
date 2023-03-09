@@ -40,11 +40,13 @@ const slice = createSlice({
     builder.addCase(attemptLogin.fulfilled, (state, { payload }) => {
       state.validationStates.isLoading = false;
       state.validationStates.isSuccess = true;
+      state.validationStates.isError = false;
       state.user = payload.user;
       state.token = payload.token;
     })
     builder.addCase(attemptLogin.rejected, (state, { payload }) => {
       state.validationStates.isLoading = false;
+      state.validationStates.isSuccess = false;
       state.validationStates.isError = true;
       state.validationStates.message = payload;
     })

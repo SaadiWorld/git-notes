@@ -57,12 +57,14 @@ const slice = createSlice({
     builder.addCase(fetchGists.fulfilled, (state, { payload }) => {
       state.validationStates.isLoading = false;
       state.validationStates.isSuccess = true;
+      state.validationStates.isError = false;
       state.gists = payload?.gists;
       state.total_gists = payload?.total_gists;
 
     })
     builder.addCase(fetchGists.rejected, (state, { payload }) => {
       state.validationStates.isLoading = false;
+      state.validationStates.isSuccess = false;
       state.validationStates.isError = true;
       state.validationStates.message = payload;
     })
@@ -72,10 +74,12 @@ const slice = createSlice({
     builder.addCase(fetchSingleGist.fulfilled, (state, { payload }) => {
       state.validationStates.isLoading = false;
       state.validationStates.isSuccess = true;
+      state.validationStates.isError = false;
       state.selectedGist = payload?.selectedGist;
     })
     builder.addCase(fetchSingleGist.rejected, (state, { payload }) => {
       state.validationStates.isLoading = false;
+      state.validationStates.isSuccess = false;
       state.validationStates.isError = true;
       state.validationStates.message = payload;
       state.selectedGist = null;

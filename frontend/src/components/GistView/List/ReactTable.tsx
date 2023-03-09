@@ -4,9 +4,9 @@ import { Column, useTable } from 'react-table';
 import { getGists } from "../../../store/selectors/app";
 import { format } from "date-fns";
 import Avatar from "../../Avatar";
-import StarFork from "../../StarFork";
-import { GIST_UPDATE_ACTIONS } from "../../../types/common";
 import { useNavigate } from "react-router-dom";
+// import StarFork from "../../StarFork";
+// import { GIST_UPDATE_ACTIONS } from "../../../types/common";
 
 interface IGistInfo {
   avatar: string;
@@ -15,8 +15,8 @@ interface IGistInfo {
   time: string;
   description: string;
   notebook_name: string;
-  star: string;
-  fork: string;
+  // star: string;
+  // fork: string;
 }
 
 function Table() {
@@ -53,20 +53,20 @@ function Table() {
         Header: 'Notebook Name',
         accessor: 'notebook_name',
       },
-      {
-        Header: '',
-        accessor: 'star',
-        Cell: ({ cell }) => (
-          <StarFork variant={GIST_UPDATE_ACTIONS.STAR} />
-        )
-      },
-      {
-        Header: '',
-        accessor: 'fork',
-        Cell: ({ cell }) => (
-          <StarFork variant={GIST_UPDATE_ACTIONS.FORK} />
-        )
-      }
+      // {
+      //   Header: '',
+      //   accessor: 'star',
+      //   Cell: ({ cell }) => (
+      //     <StarFork variant={GIST_UPDATE_ACTIONS.STAR} />
+      //   )
+      // },
+      // {
+      //   Header: '',
+      //   accessor: 'fork',
+      //   Cell: ({ cell }) => (
+      //     <StarFork variant={GIST_UPDATE_ACTIONS.FORK} />
+      //   )
+      // }
     ],
     []
   );
@@ -78,8 +78,8 @@ function Table() {
       time: gist.updated_at ? format(new Date(gist.created_at), "p") : '',
       description: gist.description || '-',
       notebook_name: gist.id || '',
-      star: gist.id || '',
-      fork: gist.id || '',
+      // star: gist.id || '',
+      // fork: gist.id || '',
     })) || [],
     [gists]
   );  

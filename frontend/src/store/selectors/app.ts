@@ -12,3 +12,9 @@ export const getGists = createSelector(appSelector, appState => get(appState, 'g
 export const getClientId = createSelector(appSelector, appState => get(appState, 'client_id', ''));
 export const getRedirectUri = createSelector(appSelector, appState => get(appState, 'redirect_uri', ''));
 export const getGistView = createSelector(appSelector, appState => get(appState, 'gist_view', GIST_VIEW.LIST));
+export const getSelectedGist = createSelector(appSelector, appState => get(appState, 'selectedGist', null));
+export const getValidationStates = createSelector(appSelector, appState => get(appState, 'validationStates', null));
+export const getIsAppLoading = createSelector(getValidationStates, validationStates => get(validationStates, 'isLoading', false));
+export const getIsAppSuccess = createSelector(getValidationStates, validationStates => get(validationStates, 'isSuccess', false));
+export const getIsAppError = createSelector(getValidationStates, validationStates => get(validationStates, 'isError', false));
+

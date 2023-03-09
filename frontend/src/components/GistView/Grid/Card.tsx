@@ -1,5 +1,5 @@
 import Gist from "react-gist"
-import Avatar from "../../Avatar";
+import GistDetail from "../../GistDetail";
 
 interface ICardProps {
   id: number;
@@ -9,17 +9,11 @@ interface ICardProps {
   time: string;
 }
 
-function Card({id, fileName, avatar, ownerName, time}: ICardProps) {
+function Card({ id, fileName, avatar, ownerName, time }: ICardProps) {
   return (
     <div className="card card-compact w-full bg-base-100 shadow-xl mb-4">
       <Gist id={`${id}`} />
-      <div className="p-4 flex">
-        <Avatar url={avatar} />
-        <div className="pl-2 grid">
-          <p className=" overflow-hidden text-ellipsis whitespace-nowrap">{ownerName} / <strong>{fileName}</strong></p>
-          <p>{time}</p>
-        </div>
-      </div>
+      <GistDetail fileName={fileName} avatar={avatar} ownerName={ownerName} time={time} />
     </div>
   )
 }
