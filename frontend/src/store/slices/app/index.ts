@@ -8,7 +8,7 @@ interface IInitialState {
   total_gists: number;
   gist_view: GIST_VIEW;
   gists: Array<any> | null;
-  singleGist: any; // TODO: Adding proper type for the gist object
+  selectedGist: any; // TODO: Adding proper type for the gist object
   client_id?: string;
   redirect_uri?: string;
   validationStates: {
@@ -25,7 +25,7 @@ const INITIAL_STATE: IInitialState = {
   total_gists: TOTAL_GISTS_COUNT,
   gist_view: GIST_VIEW.LIST,
   gists: null,
-  singleGist: {},
+  selectedGist: null,
   client_id: process.env.REACT_APP_CLIENT_ID,
   redirect_uri: process.env.REACT_APP_REDIRECT_URI,
   validationStates: {
@@ -45,6 +45,9 @@ const slice = createSlice({
     },
     setGistView: (state, { payload }) => {
       state.gist_view = payload;
+    },
+    resetSelectedGist: state => {
+      state.selectedGist = null;
     }
   },
   extraReducers: builder => {
@@ -69,17 +72,18 @@ const slice = createSlice({
     builder.addCase(fetchSingleGist.fulfilled, (state, { payload }) => {
       state.validationStates.isLoading = false;
       state.validationStates.isSuccess = true;
-      state.singleGist = payload?.selectedGist;
+      state.selectedGist = payload?.selectedGist;
     })
     builder.addCase(fetchSingleGist.rejected, (state, { payload }) => {
       state.validationStates.isLoading = false;
       state.validationStates.isError = true;
       state.validationStates.message = payload;
+      state.selectedGist = null;
     })
   },
 })
 
 const { actions, reducer } = slice
-export const { setPage, setGistView } = actions
+export const { setPage, setGistView, resetSelectedGist } = actions
 
 export default reducer;

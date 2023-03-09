@@ -121,14 +121,20 @@ function Table() {
             prepareRow(row)
             return (
               // Apply the row props
-              <tr {...row.getRowProps()} onClick={() => navigate(`gist/${row.original.notebook_name}`)}>
+              <tr 
+                {...row.getRowProps()}
+                onClick={() => navigate(`gist/${row.original.notebook_name}`)}
+                className='cursor-pointer'
+              >
                 {// Loop over the rows cells
                 row.cells.map(cell => {
                   // Apply the cell props
                   return (
                     <td {...cell.getCellProps({
-                      style: { minWidth: cell.column.minWidth, maxWidth: cell.column.maxWidth, overflow: 'auto' },
-                    })}>
+                        style: { minWidth: cell.column.minWidth, maxWidth: cell.column.maxWidth },
+                      })}
+                      className={`overflow-hidden text-ellipsis whitespace-nowrap`}
+                    >
                       {
                         cell.render('Cell')
                       }

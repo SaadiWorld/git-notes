@@ -29,7 +29,7 @@ function GistView({ type }: IGistViewProps) {
   }
 
   return (
-    <div className="px-20">
+    <>
       <div id='page-top' className="flex justify-end py-5">
         <Bars3Icon className={`cursor-pointer ${type === GIST_VIEW.LIST ? 'text-primary' : ''}`} height={20} width={20} onClick={() => handleViewChange(GIST_VIEW.LIST)} />
         <Squares2X2Icon className={`cursor-pointer ml-2 ${type === GIST_VIEW.GRID ? 'text-primary' : ''}`} height={20} width={20} onClick={() => handleViewChange(GIST_VIEW.GRID)} />
@@ -40,7 +40,7 @@ function GistView({ type }: IGistViewProps) {
         rowsPerPage={perPage}
         pageChangeHandler={handlePageChange}
       />
-    </div>
+    </>
   )
 }
 
