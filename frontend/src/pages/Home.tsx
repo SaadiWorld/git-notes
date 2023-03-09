@@ -11,7 +11,7 @@ import GistView from "../components/GistView";
 function HomePage() {
   const dispatch = useAppDispatch();
   const gistView = useSelector(getGistView);
-  const token = useSelector(getToken);
+  const token = useSelector(getToken) || window.localStorage.getItem('token');
   const page = useSelector(getAppPage);
 
   useEffect(() => {

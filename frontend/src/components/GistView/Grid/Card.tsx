@@ -10,7 +10,6 @@ interface ICardProps {
 }
 
 function Card({id, fileName, avatar, ownerName, time}: ICardProps) {
-  console.log({id, fileName, avatar, time})
   return (
     <div className="card card-compact w-full bg-base-100 shadow-xl mb-4">
       <Gist id={`${id}`} />

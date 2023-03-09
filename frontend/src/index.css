@@ -16,6 +16,10 @@ body {
   overflow: hidden;
 }
 
+iframe {
+  height: 100% !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

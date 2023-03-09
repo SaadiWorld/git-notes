@@ -4,6 +4,8 @@ import { Column, useTable } from 'react-table';
 import { getGists } from "../../../store/selectors/app";
 import { format } from "date-fns";
 import Avatar from "../../Avatar";
+import StarFork from "../../StarFork";
+import { GIST_UPDATE_ACTIONS } from "../../../types/common";
 
 interface IGistInfo {
   avatar: string;
@@ -12,6 +14,8 @@ interface IGistInfo {
   time: string;
   description: string;
   notebook_name: string;
+  star: string;
+  fork: string;
 }
 
 function Table() {
@@ -21,6 +25,9 @@ function Table() {
       {
         Header: 'Avatar',
         accessor: 'avatar',
+        Cell: ({ cell }) => (
+         <Avatar url={cell.value}/>
+        )
       },
       {
         Header: 'Name',
@@ -37,10 +44,26 @@ function Table() {
       {
         Header: 'Description',
         accessor: 'description',
+        maxWidth: 400,
+        minWidth: 400,
       },
       {
         Header: 'Notebook Name',
         accessor: 'notebook_name',
+      },
+      {
+        Header: '',
+        accessor: 'star',
+        Cell: ({ cell }) => (
+          <StarFork variant={GIST_UPDATE_ACTIONS.STAR} />
+        )
+      },
+      {
+        Header: '',
+        accessor: 'fork',
+        Cell: ({ cell }) => (
+          <StarFork variant={GIST_UPDATE_ACTIONS.FORK} />
+        )
       }
     ],
     []
@@ -49,10 +72,12 @@ function Table() {
   const data = useMemo(() => gists?.map(gist => ({
       avatar: gist.owner.avatar_url || '',
       name: gist.owner.login || '',
-      date: gist.created_at ? format(new Date(gist.created_at), "dd/MM/yyyy") : '',
-      time: gist.created_at ? format(new Date(gist.created_at), "p") : '',
+      date: gist.updated_at ? format(new Date(gist.created_at), "dd/MM/yyyy") : '',
+      time: gist.updated_at ? format(new Date(gist.created_at), "p") : '',
       description: gist.description || '-',
       notebook_name: gist.id || '',
+      star: gist.id || '',
+      fork: gist.id || '',
     })) || [],
     [gists]
   );  
@@ -75,9 +100,12 @@ function Table() {
                 {// Loop over the headers in each row
                 headerGroup.headers.map(column => (
                   // Apply the header cell props
-                  <th {...column.getHeaderProps()}>
-                    {// Render the header
-                    column.render('Header')}
+                  <th
+                    {...column.getHeaderProps({
+                      style: { minWidth: column.minWidth, maxWidth: column.maxWidth },
+                    })}
+                  >
+                    <span>{column.render('Header')}</span>
                   </th>
                 ))}
               </tr>
@@ -96,11 +124,11 @@ function Table() {
                 row.cells.map(cell => {
                   // Apply the cell props
                   return (
-                    <td {...cell.getCellProps()}>
-                      {// Render the cell contents
-                        cell.column.Header === 'Avatar' ?
-                        <Avatar url={cell.value} /> :
-                        cell.value
+                    <td {...cell.getCellProps({
+                      style: { minWidth: cell.column.minWidth, maxWidth: cell.column.maxWidth, overflow: 'auto' },
+                    })}>
+                      {
+                        cell.render('Cell')
                       }
                     </td>
                   )

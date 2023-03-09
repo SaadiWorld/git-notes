@@ -8,6 +8,11 @@ export enum GIST_VIEW {
   LIST= 'list',
 }
 
+export enum GIST_UPDATE_ACTIONS {
+  STAR = 'star',
+  FORK = 'fork',
+}
+
 export const INITIAL_PAGE = 1;
-export const PER_PAGE = 15;
+export const PER_PAGE = 12;
 export const TOTAL_GISTS_COUNT = 3000;

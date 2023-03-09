@@ -16,7 +16,7 @@ export const fetchGists = createAppAsyncThunk(
   async ({ gistType, page }: IFetchGists, thunkAPI) => {
     try {
       const per_page = getAppPerPage(thunkAPI.getState());
-      const token = getToken(thunkAPI.getState());
+      const token = getToken(thunkAPI.getState()) || window.localStorage.getItem('token');
       const isUserGists = token && gistType === GIST_TYPE.USER;
       const { data } = isUserGists ?
         await appService.fetchUserGists({ page, per_page }) :
