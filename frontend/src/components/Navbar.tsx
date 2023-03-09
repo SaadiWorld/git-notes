@@ -25,7 +25,7 @@ function Navbar({isAuthenticated}: INavbarProps) {
     <div className="fixed navbar bg-base-100 z-50 max-h-[var(--navbar-height)]">
       <div className="flex max-w-screen-2xl w-full m-auto justify-between">
         <div>
-          <a className="btn btn-ghost normal-case text-xl">EMUMBA</a>
+          <Link to='/' className="btn btn-ghost normal-case text-xl">E M U M B A</Link>
         </div>
         <div className="flex gap-2">
           <div className="form-control">

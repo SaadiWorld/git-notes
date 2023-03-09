@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { GIST_VIEW, INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../../types/common";
-import { fetchGists } from "../../thunks/app";
+import { fetchGists, fetchSingleGist } from "../../thunks/app";
 
 interface IInitialState {
   page: number;
@@ -8,8 +8,15 @@ interface IInitialState {
   total_gists: number;
   gist_view: GIST_VIEW;
   gists: Array<any> | null;
+  singleGist: any; // TODO: Adding proper type for the gist object
   client_id?: string;
   redirect_uri?: string;
+  validationStates: {
+    message?: string;
+    isLoading: boolean;
+    isSuccess: boolean;
+    isError: boolean;
+  }
 }
 
 const INITIAL_STATE: IInitialState = { 
@@ -18,8 +25,15 @@ const INITIAL_STATE: IInitialState = {
   total_gists: TOTAL_GISTS_COUNT,
   gist_view: GIST_VIEW.LIST,
   gists: null,
+  singleGist: {},
   client_id: process.env.REACT_APP_CLIENT_ID,
   redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+  validationStates: {
+    message: '',
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
+  }
 };
 
 const slice = createSlice({
@@ -34,9 +48,33 @@ const slice = createSlice({
     }
   },
   extraReducers: builder => {
+    builder.addCase(fetchGists.pending, state => {
+      state.validationStates.isLoading = true;
+    })
     builder.addCase(fetchGists.fulfilled, (state, { payload }) => {
+      state.validationStates.isLoading = false;
+      state.validationStates.isSuccess = true;
       state.gists = payload?.gists;
       state.total_gists = payload?.total_gists;
+
+    })
+    builder.addCase(fetchGists.rejected, (state, { payload }) => {
+      state.validationStates.isLoading = false;
+      state.validationStates.isError = true;
+      state.validationStates.message = payload;
+    })
+    builder.addCase(fetchSingleGist.pending, state => {
+      state.validationStates.isLoading = true;
+    })
+    builder.addCase(fetchSingleGist.fulfilled, (state, { payload }) => {
+      state.validationStates.isLoading = false;
+      state.validationStates.isSuccess = true;
+      state.singleGist = payload?.selectedGist;
+    })
+    builder.addCase(fetchSingleGist.rejected, (state, { payload }) => {
+      state.validationStates.isLoading = false;
+      state.validationStates.isError = true;
+      state.validationStates.message = payload;
     })
   },
 })

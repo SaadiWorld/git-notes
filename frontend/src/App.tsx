@@ -10,6 +10,7 @@ import PublicRoute from './routes/PublicRoute';
 import { useAppDispatch } from './store';
 import { getToken, getUser } from './store/selectors/auth';
 import { setAuthData } from './store/slices/auth';
+import GistPage from './pages/Gist';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
             <Route path='login' element={<LoginPage />} />
+            <Route path='gist/:id' element={<GistPage />} />
             <Route path='/' element={<HomePage />} />
           </Route>
           <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>

@@ -1,4 +1,6 @@
+import { AxiosError } from "axios";
 import { AppService } from "../../../services/app";
+import { IResponseData, prepareErrorResponseMessage } from "../helpers";
 import { GIST_TYPE, TOTAL_GISTS_COUNT } from "../../../types/common";
 import { getAppPerPage } from "../../selectors/app";
 import { getToken, getUserTotalGistsCount } from "../../selectors/auth";
@@ -24,6 +26,17 @@ export const fetchGists = createAppAsyncThunk(
       const userGistsCount = getUserTotalGistsCount(thunkAPI.getState());
       return thunkAPI.fulfillWithValue({ gists: data, total_gists: isUserGists ? userGistsCount: TOTAL_GISTS_COUNT })
     } catch (error) {
-      console.error(error);
+      return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
+    }
+});
+
+export const fetchSingleGist = createAppAsyncThunk(
+  "app/fetchSingleGist", 
+  async (gist_id: string, thunkAPI) => {
+    try {
+      const { data } = await appService.fetchSingleGist(gist_id);
+      return thunkAPI.fulfillWithValue({ selectedGist: data })
+    } catch (error) {
+      return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
     }
 });

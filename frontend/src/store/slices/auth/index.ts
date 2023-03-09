@@ -4,9 +4,24 @@ import { attemptLogin } from "../../thunks/auth";
 interface IInitialState {
   token: string;
   user: any;
+  validationStates: {
+    message?: string;
+    isLoading: boolean;
+    isSuccess: boolean;
+    isError: boolean;
+  }
 }
 
-const INITIAL_STATE: IInitialState = { token: '', user: null }
+const INITIAL_STATE: IInitialState = { 
+  token: '',
+  user: null,
+  validationStates: {
+    message: '',
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
+  }
+}
 
 const slice = createSlice({
   name: 'auth',
@@ -19,9 +34,19 @@ const slice = createSlice({
     resetAuthData: () => INITIAL_STATE
   },
   extraReducers: builder => {
+    builder.addCase(attemptLogin.pending, state => {
+      state.validationStates.isLoading = true;
+    })
     builder.addCase(attemptLogin.fulfilled, (state, { payload }) => {
+      state.validationStates.isLoading = false;
+      state.validationStates.isSuccess = true;
       state.user = payload.user;
       state.token = payload.token;
+    })
+    builder.addCase(attemptLogin.rejected, (state, { payload }) => {
+      state.validationStates.isLoading = false;
+      state.validationStates.isError = true;
+      state.validationStates.message = payload;
     })
   },
 })

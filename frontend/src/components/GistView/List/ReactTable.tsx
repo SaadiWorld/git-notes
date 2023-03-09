@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import Avatar from "../../Avatar";
 import StarFork from "../../StarFork";
 import { GIST_UPDATE_ACTIONS } from "../../../types/common";
+import { useNavigate } from "react-router-dom";
 
 interface IGistInfo {
   avatar: string;
@@ -19,6 +20,7 @@ interface IGistInfo {
 }
 
 function Table() {
+  const navigate = useNavigate();
   const gists = useSelector(getGists);
   const columns = useMemo<Column<IGistInfo>[]>(
     () => [
@@ -119,7 +121,7 @@ function Table() {
             prepareRow(row)
             return (
               // Apply the row props
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} onClick={() => navigate(`gist/${row.original.notebook_name}`)}>
                 {// Loop over the rows cells
                 row.cells.map(cell => {
                   // Apply the cell props
