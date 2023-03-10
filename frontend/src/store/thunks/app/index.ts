@@ -13,6 +13,11 @@ interface IFetchGists {
   page?: number;
 }
 
+interface IStarGists {
+  selectedGistId: string;
+  shouldStarGist: boolean;
+}
+
 export const fetchGists = createAppAsyncThunk(
   "app/fetchGists", 
   async ({ gistType, page }: IFetchGists, thunkAPI) => {
@@ -38,6 +43,31 @@ export const fetchSingleGist = createAppAsyncThunk(
     try {
       const { data } = await appService.fetchSingleGist(gist_id);
       return thunkAPI.fulfillWithValue({ selectedGist: data })
+    } catch (error) {
+      return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
+    }
+});
+
+export const starGist = createAppAsyncThunk(
+  "app/starGist", 
+  async ({ selectedGistId, shouldStarGist }: IStarGists, thunkAPI) => {
+    try {
+      const response = shouldStarGist ? await appService.starGist(selectedGistId) : await appService.unstarGist(selectedGistId);
+      const newStarStatus = response.status === 204 && shouldStarGist;
+      return thunkAPI.fulfillWithValue(newStarStatus);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
+    }
+});
+
+export const checkStarStatus = createAppAsyncThunk(
+  "app/checkStarStatus", 
+  async (gist_id: string, thunkAPI) => {
+    try {
+      const response = await appService.checkStarStatus(gist_id);
+      // const selectedGist = getAppPerPage(thunkAPI.getState());
+      const isStarred = response.status === 204;
+      return thunkAPI.fulfillWithValue(isStarred);
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
     }

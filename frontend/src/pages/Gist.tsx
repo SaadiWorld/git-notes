@@ -8,6 +8,7 @@ import GistDetail from "../components/GistDetail";
 import Loader from "../components/Loader";
 import { useAppDispatch } from "../store";
 import { getAppMessage, getIsAppError, getIsAppLoading, getSelectedGist } from "../store/selectors/app";
+import { resetSelectedGist } from "../store/slices/app";
 import { fetchSingleGist } from "../store/thunks/app";
 
 function GistPage() {
@@ -17,7 +18,11 @@ function GistPage() {
   const isAppLoading = useSelector(getIsAppLoading);
   const isAppError = useSelector(getIsAppError);
   const appMessage = useSelector(getAppMessage);
-  const [isValidGist, setIsValidGist] = useState(false)
+  const [isValidGist, setIsValidGist] = useState(false);
+
+  useEffect(() => {
+    dispatch(resetSelectedGist())
+  }, [])
 
   useEffect(() => {
     setIsValidGist(false)
@@ -30,10 +35,9 @@ function GistPage() {
   }, [selectedGist])
   
   return (
-    <div className="h-full"> 
-      { isAppLoading ? 
-        <Loader /> :
-        isValidGist ?
+    <div className="h-full relative"> 
+      { isAppLoading && <Loader /> }
+      { isValidGist ?
         <>
           <div className="flex justify-between items-center">
             <GistDetail

@@ -13,4 +13,13 @@ export class AppService {
   fetchSingleGist = async (gistId: string): Promise<any> => {
     return await GITHUB_API.get(`gists/${gistId}`);
   }
+  starGist = async (gistId: string): Promise<any> =>{
+    return await GITHUB_API.put(`gists/${gistId}/star`);
+  }
+  unstarGist = async (gistId: string): Promise<any> =>{
+    return await GITHUB_API.delete(`gists/${gistId}/star`);
+  }
+  checkStarStatus = async (gistId: string): Promise<any> =>{
+    return await GITHUB_API.get(`gists/${gistId}/star`);
+  }
 }

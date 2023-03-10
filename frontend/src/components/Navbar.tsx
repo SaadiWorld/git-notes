@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../store";
 import { getClientId, getRedirectUri } from "../store/selectors/app";
 import { getUserAvatar } from "../store/selectors/auth";
@@ -13,6 +13,7 @@ interface INavbarProps{
 
 function Navbar({isAuthenticated}: INavbarProps) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const avatarUrl =  useSelector(getUserAvatar);
   const client_id =  useSelector(getClientId);
   const redirect_uri =  useSelector(getRedirectUri);
@@ -20,6 +21,7 @@ function Navbar({isAuthenticated}: INavbarProps) {
   const handleLogout = () => {
     dispatch(resetAuthData());
     window.localStorage.clear();
+    navigate('/');
   }
 
   return (
@@ -56,7 +58,7 @@ function Navbar({isAuthenticated}: INavbarProps) {
               </ul>
             </div> :
             <div className="navbar-end">
-              <Link to={`https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}`} className="btn">Login</Link>
+              <Link to={`https://github.com/login/oauth/authorize?client_id=${client_id}&scope=gist&redirect_uri=${redirect_uri}`} className="btn">Login</Link>
             </div>
           }
         </div>
