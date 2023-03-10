@@ -72,3 +72,14 @@ export const checkStarStatus = createAppAsyncThunk(
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
     }
 });
+
+export const forkGist = createAppAsyncThunk(
+  "app/forkGist", 
+  async (selectedGistId: string, thunkAPI) => {
+    try {
+      const { data: { id } } = await appService.forkGist(selectedGistId);
+      return thunkAPI.fulfillWithValue(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
+    }
+});

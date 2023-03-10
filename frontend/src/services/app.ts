@@ -22,4 +22,7 @@ export class AppService {
   checkStarStatus = async (gistId: string): Promise<any> =>{
     return await GITHUB_API.get(`gists/${gistId}/star`);
   }
+  forkGist = async (gistId: string): Promise<any> =>{
+    return await GITHUB_API.post(`gists/${gistId}/forks`);
+  }
 }

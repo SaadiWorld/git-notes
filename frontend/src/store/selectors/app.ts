@@ -17,6 +17,8 @@ export const getSelectedGist = createSelector(appSelector, appState => get(appSt
 export const getSelectedGistId = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'id', null));
 export const getSelectedGistOwner = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'owner', null));
 export const getIsStarredGist = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'isStarred', false));
+export const getForkedGistId = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'forkedGistId', null));
+export const getForksList = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'forks', []));
 export const getSelectedGistUserName = createSelector(getSelectedGistOwner, selectedGistOwner => get(selectedGistOwner, 'login', ''));
 
 export const getValidationStates = createSelector(appSelector, appState => get(appState, 'validationStates', null));

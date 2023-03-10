@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { GIST_VIEW, INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../../types/common";
-import { checkStarStatus, fetchGists, fetchSingleGist, starGist } from "../../thunks/app";
+import { checkStarStatus, fetchGists, fetchSingleGist, forkGist, starGist } from "../../thunks/app";
 
 interface IInitialState {
   page: number;
@@ -95,6 +95,16 @@ const slice = createSlice({
       state.selectedGist.isStarred = payload;
     })
     builder.addCase(starGist.rejected, (state, { payload }) => {
+      state.validationStates.isLoading = false;
+    })
+    builder.addCase(forkGist.pending, state => {
+      state.validationStates.isLoading = true;
+    })
+    builder.addCase(forkGist.fulfilled, (state, { payload }) => {
+      state.validationStates.isLoading = false;
+      state.selectedGist.forkedGistId = payload;
+    })
+    builder.addCase(forkGist.rejected, state => {
       state.validationStates.isLoading = false;
     })
   },

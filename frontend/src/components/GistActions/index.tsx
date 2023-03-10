@@ -1,11 +1,11 @@
-import { BarsArrowUpIcon, PencilSquareIcon, StarIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { getSelectedGistId, getSelectedGistUserName, getIsStarredGist } from "../../store/selectors/app";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { getSelectedGistUserName } from "../../store/selectors/app";
 import { useSelector } from "react-redux";
 import { getIsAuthenticated, getUserName } from "../../store/selectors/auth";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../store";
-import { checkStarStatus } from "../../store/thunks/app";
 import Star from "./Star";
+import Fork from "./Fork";
 
 // interface IStarForkProps {
 //   variant: GIST_ACTIONS;
@@ -31,7 +31,7 @@ function GistAction() {
           ) : (
             <>
               <Star />
-              <BarsArrowUpIcon className="cursor-pointer ml-2" height={20} width={20} />
+              <Fork />
             </>
           )
           }
