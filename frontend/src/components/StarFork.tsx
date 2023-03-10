@@ -11,7 +11,7 @@ function StarFork({ variant, isChecked = false }: IStarForkProps) {
   return (
     <>
       {variant === GIST_UPDATE_ACTIONS.STAR && <StarIcon className="cursor-pointer" height={20} width={20} />}
-      {variant === GIST_UPDATE_ACTIONS.FORK && <BarsArrowUpIcon  className="cursor-pointer" height={20} width={20} />}
+      {variant === GIST_UPDATE_ACTIONS.FORK && <BarsArrowUpIcon  className="cursor-pointer ml-2" height={20} width={20} />}
     </>
   )
 }

@@ -37,15 +37,15 @@ function Navbar({isAuthenticated}: INavbarProps) {
               </label>
               <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                 <li>
-                  <a className="justify-between">
+                  <Link to='/my-gists' className="justify-between">
                     My Gists
                     {/* <span className="badge">New</span> */}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="justify-between">
+                  <Link to='/starred-gists' className="justify-between">
                     Starred Gists
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a className="justify-between">

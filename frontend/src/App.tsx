@@ -1,16 +1,18 @@
 import { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Loader from './components/Loader';
-import LoginPage from './pages/Login';
 import NoFoundComponent from './components/NoFoundComponent';
+import GistPage from './pages/Gist';
+import HomePage from './pages/Home';
+import LoginPage from './pages/Login';
+import MyGistsPage from './pages/MyGists';
+import StarredGistsPage from './pages/StarredGists';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import { useAppDispatch } from './store';
 import { getToken, getUser } from './store/selectors/auth';
 import { setAuthData } from './store/slices/auth';
-import GistPage from './pages/Gist';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -36,6 +38,8 @@ function App() {
             <Route path='/' element={<HomePage />} />
           </Route>
           <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
+            <Route path='my-gists' element={<MyGistsPage />} />
+            <Route path='starred-gists' element={<StarredGistsPage />} />
           </Route>
           <Route path="*" element={<NoFoundComponent />} />
         </Routes>

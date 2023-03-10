@@ -6,18 +6,18 @@ import { getAppPage, getGistView } from "../store/selectors/app";
 import { fetchGists } from "../store/thunks/app";
 import { GIST_TYPE } from "../types/common";
 
-function HomePage() {
+function MyGistsPage() {
   const dispatch = useAppDispatch();
   const gistView = useSelector(getGistView);
   const page = useSelector(getAppPage);
 
   useEffect(() => {
-    dispatch(fetchGists({ gistType: GIST_TYPE.PUBLIC, page }))  
+    dispatch(fetchGists({ gistType: GIST_TYPE.USER, page }))  
   }, [page])
-  
+
   return (
     <GistView type={gistView} />
   )
 }
 
-export default HomePage
+export default MyGistsPage

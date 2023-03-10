@@ -1,6 +1,7 @@
 export enum GIST_TYPE {
   USER = 'user',
   PUBLIC= 'public',
+  STARRED= 'starred',
 }
 
 export enum GIST_VIEW {

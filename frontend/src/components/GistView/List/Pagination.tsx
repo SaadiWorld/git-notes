@@ -22,7 +22,7 @@ const Pagination = ({ totalRows, rowsPerPage, pageChangeHandler }: IPaginationPr
       onPageChange={handlePageChange}
       pageCount={pageCount}
       previousLabel="< previous"
-      // renderOnZeroPageCount={null}
+      renderOnZeroPageCount={() => null}
       className="pagination flex pt-8 pb-10 overflow-auto sm:justify-end justify-center"
       pageClassName="py-1.5 px-2.5 text-sm rounded-md"
       pageLinkClassName="numbered-link py-1.5 px-2.5 text-sm rounded-md"
