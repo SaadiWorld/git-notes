@@ -123,7 +123,7 @@ function Table() {
               // Apply the row props
               <tr 
                 {...row.getRowProps()}
-                onClick={() => navigate(`gist/${row.original.notebook_name}`)}
+                onClick={() => navigate(`/gist/${row.original.notebook_name}`)}
                 className='cursor-pointer'
               >
                 {// Loop over the rows cells

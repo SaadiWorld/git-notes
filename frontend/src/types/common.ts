@@ -9,9 +9,11 @@ export enum GIST_VIEW {
   LIST= 'list',
 }
 
-export enum GIST_UPDATE_ACTIONS {
+export enum GIST_ACTIONS {
   STAR = 'star',
   FORK = 'fork',
+  EDIT = 'edit',
+  DELETE = 'delete',
 }
 
 export const INITIAL_PAGE = 1;

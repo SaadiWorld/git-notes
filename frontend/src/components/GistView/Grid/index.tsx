@@ -12,7 +12,7 @@ function Grid() {
       { gists?.map(gist=> (
         <div
           key={gist.id}
-          onClick={() => navigate(`gist/${gist.id}`)}
+          onClick={() => navigate(`/gist/${gist.id}`)}
           className='cursor-pointer'
         >
           <Card

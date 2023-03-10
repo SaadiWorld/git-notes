@@ -1,15 +1,14 @@
+import { formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
-import { useAppDispatch } from "../store";
-import { fetchSingleGist } from "../store/thunks/app";
 import Gist from "react-gist";
 import { useSelector } from "react-redux";
-import { getIsAppError, getIsAppLoading, getAppMessage, getSelectedGist } from "../store/selectors/app";
-import Loader from "../components/Loader";
+import { useParams } from "react-router-dom";
+import GistActions from "../components/GistActions";
 import GistDetail from "../components/GistDetail";
-import { formatDistanceToNow } from "date-fns";
-import StarFork from "../components/StarFork";
-import { GIST_UPDATE_ACTIONS } from "../types/common";
+import Loader from "../components/Loader";
+import { useAppDispatch } from "../store";
+import { getAppMessage, getIsAppError, getIsAppLoading, getSelectedGist } from "../store/selectors/app";
+import { fetchSingleGist } from "../store/thunks/app";
 
 function GistPage() {
   const { id } = useParams();
@@ -44,8 +43,7 @@ function GistPage() {
               fileName={Object.keys(selectedGist.files).join(', ')}
             />
             <div className="flex">
-              <StarFork variant={GIST_UPDATE_ACTIONS.STAR} />
-              <StarFork variant={GIST_UPDATE_ACTIONS.FORK} />
+              <GistActions />
             </div>
           </div>
           <Gist id={`${id}`} />
