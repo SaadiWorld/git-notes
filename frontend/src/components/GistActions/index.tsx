@@ -1,11 +1,11 @@
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { getSelectedGistUserName } from "../../store/selectors/app";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { getSelectedGistId, getSelectedGistUserName } from "../../store/selectors/app";
 import { useSelector } from "react-redux";
 import { getIsAuthenticated, getUserName } from "../../store/selectors/auth";
-import { useEffect } from "react";
-import { useAppDispatch } from "../../store";
 import Star from "./Star";
 import Fork from "./Fork";
+import { useNavigate } from "react-router-dom";
+import Delete from "./Delete";
 
 // interface IStarForkProps {
 //   variant: GIST_ACTIONS;
@@ -13,11 +13,11 @@ import Fork from "./Fork";
 // }
 
 function GistAction() {
-  // const dispatch = useAppDispatch()
-  // const selectedGistId = useSelector(getSelectedGistId);
+  const navigate = useNavigate();
   const isAuthenticated = useSelector(getIsAuthenticated);
   const userName = useSelector(getUserName);
   const gistOwnerName = useSelector(getSelectedGistUserName);
+  const id = useSelector(getSelectedGistId);
 
   return (
     <>
@@ -25,8 +25,8 @@ function GistAction() {
         <>
           {userName === gistOwnerName ? (
             <>
-              <PencilSquareIcon className="cursor-pointer" height={20} width={20} />
-              <TrashIcon className="cursor-pointer ml-2" height={20} width={20} />
+              <PencilSquareIcon className="cursor-pointer" height={20} width={20} onClick={() => navigate(`/edit-gist/${id}`)} />
+              <Delete />
             </>
           ) : (
             <>

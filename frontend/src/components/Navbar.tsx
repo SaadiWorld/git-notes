@@ -39,6 +39,12 @@ function Navbar({isAuthenticated}: INavbarProps) {
               </label>
               <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                 <li>
+                  <Link to='/create-gist' className="justify-between">
+                    Create Gist
+                    {/* <span className="badge">New</span> */}
+                  </Link>
+                </li>
+                <li>
                   <Link to='/my-gists' className="justify-between">
                     My Gists
                     {/* <span className="badge">New</span> */}

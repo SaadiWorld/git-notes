@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Loader from './components/Loader';
 import NoFoundComponent from './components/NoFoundComponent';
 import GistPage from './pages/Gist';
+import GistForm from './pages/GistForm';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
 import MyGistsPage from './pages/MyGists';
@@ -40,6 +41,8 @@ function App() {
           <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
             <Route path='my-gists' element={<MyGistsPage />} />
             <Route path='starred-gists' element={<StarredGistsPage />} />
+            <Route path='create-gist' element={<GistForm />} />
+            <Route path='edit-gist/:id' element={<GistForm />} />
           </Route>
           <Route path="*" element={<NoFoundComponent />} />
         </Routes>

@@ -25,4 +25,7 @@ export class AppService {
   forkGist = async (gistId: string): Promise<any> =>{
     return await GITHUB_API.post(`gists/${gistId}/forks`);
   }
+  deleteGist = async (gistId: string): Promise<any> =>{
+    return await GITHUB_API.delete(`gists/${gistId}`);
+  }
 }

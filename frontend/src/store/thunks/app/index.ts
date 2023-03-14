@@ -83,3 +83,14 @@ export const forkGist = createAppAsyncThunk(
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
     }
 });
+
+export const deleteGist = createAppAsyncThunk(
+  "app/deleteGist", 
+  async (selectedGistId: string, thunkAPI) => {
+    try {
+      const response = await appService.deleteGist(selectedGistId);
+      return thunkAPI.fulfillWithValue(response.status === 204);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
+    }
+});
