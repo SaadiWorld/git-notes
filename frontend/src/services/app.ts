@@ -1,5 +1,27 @@
 import { GITHUB_API } from "../api";
 
+export interface IContent {
+  name?: string;
+  content: string;
+  filename?: string;
+}
+
+export interface IFile {
+  [key: string]: IContent | null;
+}
+
+export interface ICreateGistRequest {
+  description?: string;
+  public: boolean;
+  files: IFile;
+}
+
+export interface ICreateGistLocalState {
+  description?: string;
+  public: boolean;
+  files: IContent[];
+}
+
 export class AppService {
   fetchPublicGists = async (queryParams: any): Promise<any> => {
     return await GITHUB_API.get('gists/public', { params: queryParams });
@@ -27,5 +49,14 @@ export class AppService {
   }
   deleteGist = async (gistId: string): Promise<any> =>{
     return await GITHUB_API.delete(`gists/${gistId}`);
+  }
+  createGist = async (payload: ICreateGistRequest): Promise<any> =>{
+    return await GITHUB_API.post('gists', payload);
+  }
+  updateGist = async (payload: ICreateGistRequest, gistId: string): Promise<any> =>{
+    return await GITHUB_API.patch(`gists/${gistId}`, {
+      gist_id: gistId,
+      ...payload
+    });
   }
 }

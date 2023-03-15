@@ -1,10 +1,239 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import Alert from '../components/Alerts/GenericAlert';
+import Loader from '../components/Loader';
+import useScrollPosition from '../hooks/useScrollPosition';
+import { IContent, ICreateGistLocalState } from '../services/app';
+import { useAppDispatch } from '../store';
+import { getAppMessage, getIsAppError, getIsAppLoading, getSelectedGistDescription, getSelectedGistFiles, getSelectedGistFilesArray, getSelectedGistId } from '../store/selectors/app';
+import { resetSelectedGist } from '../store/slices/app';
+import { createGist, fetchSingleGist, updateGist } from '../store/thunks/app';
+import { ALERT_VARIANTS } from '../types/common';
+import { getRandomFileName, isEverythingUnique } from '../utils/functions';
 
 function GistForm() {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const selectedGistId = useSelector(getSelectedGistId);
+  const selectedGistDescription = useSelector(getSelectedGistDescription);
+  const selectedGistFiles = useSelector(getSelectedGistFiles);
+  const selectedGistFilesArray = useSelector(getSelectedGistFilesArray);
+  const isAppLoading = useSelector(getIsAppLoading);
+  const isAppError = useSelector(getIsAppError);
+  const appMessage = useSelector(getAppMessage);
+  const [isValidGist, setIsValidGist] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isFileAdded, setIsFileAdded] = useState(false);
+  const [description, setDescription] = useState<string | undefined>();
+  const [filesMap, setFilesMap] = useState<{[key: string]: IContent | null}>({})
+  const [groups, setGroups] = useState<ICreateGistLocalState>({
+    public: true,
+    files: [{
+      filename: '',
+      content: ''
+    }]
+  })
+  const [setScrollPosition] = useScrollPosition();
+
+  useEffect(() => {
+    dispatch(resetSelectedGist())
+  }, [])
+
+  useEffect(() => {
+    setIsValidGist(false)
+    id && dispatch(fetchSingleGist(id))
+  }, [id])
+
+  useEffect(() => {
+    if (!id || (selectedGistId=== id && !isAppError)) setIsValidGist(true);
+    else setIsValidGist(false);
+  }, [selectedGistId])
+
+  useEffect(() => {
+    setDescription(selectedGistDescription)
+  }, [selectedGistDescription])
+
+  useEffect(() => {
+    if (id && selectedGistFilesArray.length > 0) {
+      setGroups({
+        ...groups,
+        files: selectedGistFilesArray
+      })
+    }
+  }, [selectedGistFilesArray])
+  
+
+  const handleFileChange = (filename: string, value: string, index: number) => {
+    const newFiles = [...groups.files];
+    newFiles[index][filename as keyof IContent] = value;
+    setGroups(state => {
+      const stateCopy = {
+        ...state,
+        files: newFiles
+      };
+      return stateCopy;
+    });
+  }
+
+  const handleFileRemoval = (index: number) => {
+    if (groups.files.length === 1) return;
+    const newFiles = [...groups.files];
+    const removed = newFiles.splice(index, 1).pop();
+    if (removed?.name && removed?.name in selectedGistFiles) {
+      setFilesMap({
+        ...filesMap,
+        [removed.name]: null
+      })
+    }
+    setGroups(state => {
+      const stateCopy = {
+        ...state,
+        files: newFiles
+      };
+      return stateCopy;
+    });
+    setIsFileAdded(false)
+  }
+
+  const handleFileAddition = () => {
+    const newFiles = [...groups.files];
+    newFiles.push({
+      filename: '',
+      content: ''
+    });
+    setGroups(state => {
+      const stateCopy = {
+        ...state,
+        files: newFiles
+      };
+      return stateCopy;
+    });
+    setIsFileAdded(true)
+  }
+
+  const validateForm = () => {
+    if (!(groups.files.every(file => file.content))) {
+      setErrorMessage("Contents can't be empty");
+      return false;
+    }
+    if (!(isEverythingUnique(groups.files, 'filename'))) {
+      setErrorMessage("Contents must have unique filenames");
+      return false;
+    }
+    return true;
+  }
+
+  const handleGistAction = (e: any) => {
+    if (validateForm()) {
+      setIsError(false)
+      setErrorMessage('')
+      // console.log('local state', {
+      //   description,
+      //   ...groups
+      // })
+      let filesObj: { [key: string]: IContent } = {}
+      let i = 0;
+      for (const item of groups.files) {
+        if (!item.filename) {
+          i++;
+          item.filename = getRandomFileName();
+        }
+        const key = id && item.name ? item.name : item.filename
+        filesObj[key] = { filename: item.filename, content: item.content };
+      }
+      // console.log('payload', {
+      //     description,
+      //     public: groups.public,
+      //     files: { ...filesObj, ...filesMap }
+      //   })
+      const payload = {
+        description,
+        public: groups.public,
+        files: { ...filesObj, ...filesMap }
+      }
+      if (id) {
+        dispatch(updateGist({ payload, gistId: id })).then(() => navigate(`/gist/${id}`))  
+      } else {
+        dispatch(createGist(payload)).then(() => navigate('/my-gists'))
+      }
+    } else {
+      isError ? setScrollPosition('alert', 'start') : setIsError(true)
+    }
+  }
+
+  useEffect(() => {
+    isError && setScrollPosition('alert', 'start')
+  }, [isError])
+
+  useEffect(() => {
+    isFileAdded && setScrollPosition('add-file-btn', 'end')
+  }, [isFileAdded, groups.files])
+
+
   return (
-    <div>{id ? 'Edit Gist' : 'Create Gist'}</div>
+    <div className='h-full relative'>
+      {isAppLoading && <Loader />}
+      {isValidGist ?
+        <div className='my-5 mx-10'>
+          <div id="alert">
+            {isError && errorMessage && 
+              <Alert 
+                message={errorMessage} 
+                variant={ALERT_VARIANTS.ERROR}
+                onClose={() => {
+                  setIsError(false);
+                  setErrorMessage('');
+                }} 
+              />
+            }
+          </div>
+          <h2 className="text-lg font-bold mb-3">{`${id ? 'Edit' : 'Create'} Gist`}</h2>
+          <input
+            name="description"
+            type="text"
+            placeholder="Gist description..."
+            className="input input-bordered w-full mb-10"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+
+          {groups.files.map((group, index) => (
+            <div key={index} className="p-4 mb-10 rounded-md border-gray-400 border-solid border-[1px]">
+              <input
+                name="filename"
+                type="text"
+                placeholder="Filename including extension..."
+                className="input input-bordered w-full mb-3"
+                value={group.filename}
+                onChange={(e) => handleFileChange(e.target.name, e.target.value, index)}
+              />
+              <textarea
+                rows={10}
+                name="content"
+                placeholder="Content..."
+                className="textarea textarea-bordered textarea-md w-full mb-3"
+                value={group.content}
+                onChange={(e) => handleFileChange(e.target.name, e.target.value, index)}
+              />
+              {groups.files.length > 1 &&
+                <div className='flex justify-end'>
+                  <button type='button' className='btn btn-sm bg-red-700 text-white border-none' onClick={() => handleFileRemoval(index)}>Delete</button>
+                </div>}
+            </div>
+          ))}
+
+          <div className='flex justify-between pb-10'>
+            <button id='add-file-btn' type='button' className='btn btn-sm bg-blue-900 text-white border-none' onClick={handleFileAddition}>Add File</button>
+            <button type='button' className='btn btn-sm bg-green-900 text-white border-none' onClick={(e) => handleGistAction(e)}>{!id ? 'Create' : 'Update'}</button>
+          </div>
+        </div> :
+        <div className="flex h-10 justify-center items-center">{appMessage}</div>
+      }
+    </div>
   )
 }
 

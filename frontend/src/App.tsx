@@ -41,8 +41,8 @@ function App() {
           <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
             <Route path='my-gists' element={<MyGistsPage />} />
             <Route path='starred-gists' element={<StarredGistsPage />} />
-            <Route path='create-gist' element={<GistForm />} />
-            <Route path='edit-gist/:id' element={<GistForm />} />
+            <Route path='create-gist' element={<GistForm key={1} />} />
+            <Route path='edit-gist/:id' element={<GistForm key={2} />} />
           </Route>
           <Route path="*" element={<NoFoundComponent />} />
         </Routes>

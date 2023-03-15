@@ -1,6 +1,7 @@
 import { Bars3Icon, Squares2X2Icon } from "@heroicons/react/24/outline";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import useScrollToTop from "../../hooks/useScrollToTop";
+import useScrollPosition from "../../hooks/useScrollPosition";
 import { useAppDispatch } from "../../store";
 import { getAppPage, getAppPerPage, getTotalGists } from "../../store/selectors/app";
 import { setGistView, setPage } from "../../store/slices/app";
@@ -16,7 +17,7 @@ interface IGistViewProps{
 function GistView({ type }: IGistViewProps) {
   const dispatch = useAppDispatch();
   const page = useSelector(getAppPage);
-  useScrollToTop(page, 'page-top');
+  const [setScrollPosition] = useScrollPosition();
   const perPage = useSelector(getAppPerPage);
   const totalRows = useSelector(getTotalGists);
   const handlePageChange = (page: number) => {
@@ -27,6 +28,11 @@ function GistView({ type }: IGistViewProps) {
     if (newType === type) return;
     dispatch(setGistView(newType));
   }
+
+  useEffect(() => {
+    setScrollPosition('page-top', 'start')
+  }, [page])
+  
 
   return (
     <>

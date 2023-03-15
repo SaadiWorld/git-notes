@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { AppService } from "../../../services/app";
+import { AppService, ICreateGistRequest } from "../../../services/app";
 import { IResponseData, prepareErrorResponseMessage } from "../helpers";
 import { GIST_TYPE, TOTAL_GISTS_COUNT } from "../../../types/common";
 import { getAppPerPage } from "../../selectors/app";
@@ -16,6 +16,11 @@ interface IFetchGists {
 interface IStarGists {
   selectedGistId: string;
   shouldStarGist: boolean;
+}
+
+interface IUpdateGist {
+  payload: ICreateGistRequest;
+  gistId: string;
 }
 
 export const fetchGists = createAppAsyncThunk(
@@ -90,6 +95,28 @@ export const deleteGist = createAppAsyncThunk(
     try {
       const response = await appService.deleteGist(selectedGistId);
       return thunkAPI.fulfillWithValue(response.status === 204);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
+    }
+});
+
+export const createGist = createAppAsyncThunk(
+  "app/createGist", 
+  async (payload: ICreateGistRequest, thunkAPI) => {
+    try {
+      const response = await appService.createGist(payload);
+      return thunkAPI.fulfillWithValue(response.status === 201);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
+    }
+});
+
+export const updateGist = createAppAsyncThunk(
+  "app/updateGist", 
+  async ({ payload, gistId }: IUpdateGist, thunkAPI) => {
+    try {
+      const response = await appService.updateGist(payload, gistId);
+      return thunkAPI.fulfillWithValue(response.status === 200);
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
     }

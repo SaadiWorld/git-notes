@@ -2,6 +2,7 @@ import { RootState } from "..";
 import get from 'lodash.get'
 import { createSelector } from "@reduxjs/toolkit";
 import { GIST_VIEW, INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../types/common";
+import { IFile } from "../../services/app";
 
 const appSelector = (state: RootState) => state.app;
 
@@ -15,10 +16,14 @@ export const getGistView = createSelector(appSelector, appState => get(appState,
 
 export const getSelectedGist = createSelector(appSelector, appState => get(appState, 'selectedGist', null));
 export const getSelectedGistId = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'id', null));
+export const getSelectedGistDescription = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'description', ''));
 export const getSelectedGistOwner = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'owner', null));
 export const getIsStarredGist = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'isStarred', false));
 export const getForkedGistId = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'forkedGistId', null));
 export const getForksList = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'forks', []));
+export const getSelectedGistFiles = createSelector(getSelectedGist, selectedGist => get(selectedGist, 'files', null));
+export const getSelectedGistFilesArray = createSelector(getSelectedGistFiles, selectedGistFiles => selectedGistFiles && Object.values(selectedGistFiles as IFile).map((file) => ({ name: file!.filename, filename: file!.filename, content: file!.content })) || []);
+
 export const getSelectedGistUserName = createSelector(getSelectedGistOwner, selectedGistOwner => get(selectedGistOwner, 'login', ''));
 
 export const getValidationStates = createSelector(appSelector, appState => get(appState, 'validationStates', null));
