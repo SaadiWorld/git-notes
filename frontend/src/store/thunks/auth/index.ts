@@ -10,8 +10,9 @@ export const attemptLogin = createAppAsyncThunk(
   async (code: string, thunkAPI) => {
     try {
       const { data } = await authService.attemptLogin(code);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      const { token, user } = data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
       return thunkAPI.fulfillWithValue(data)
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))

@@ -23,7 +23,7 @@ function GistPage() {
   useEffect(() => {
     dispatch(resetSelectedGist())
   }, [])
-
+  
   useEffect(() => {
     setIsValidGist(false)
     id && dispatch(fetchSingleGist(id))
@@ -37,7 +37,7 @@ function GistPage() {
   return (
     <div className="h-full relative"> 
       { isAppLoading && <Loader /> }
-      { isValidGist ?
+      { isValidGist && selectedGist ?
         <>
           <div className="flex justify-between items-center">
             <GistDetail

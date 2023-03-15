@@ -16,7 +16,7 @@ function Grid() {
           className='cursor-pointer'
         >
           <Card
-            id={gist.id}
+            id={+gist.id}
             avatar={gist.owner.avatar_url}
             ownerName={gist.owner.login}
             time={`${formatDistanceToNow(new Date(gist.updated_at))} ago`}

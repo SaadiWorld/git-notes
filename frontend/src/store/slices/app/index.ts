@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { GIST_VIEW, INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../../types/common";
 import { checkStarStatus, createGist, deleteGist, fetchGists, fetchSingleGist, forkGist, starGist, updateGist } from "../../thunks/app";
+import { IGist } from "../../types/app";
 
 interface IInitialState {
   page: number;
   per_page: number;
   total_gists: number;
   gist_view: GIST_VIEW;
-  gists: Array<any> | null;
-  selectedGist: any; // TODO: Adding proper type for the gist object
+  gists: Array<IGist> | null;
+  selectedGist: IGist | null; // TODO: Adding proper type for the gist object
   client_id?: string;
   redirect_uri?: string;
   validationStates: {
@@ -48,6 +49,7 @@ const slice = createSlice({
     },
     resetSelectedGist: state => {
       state.selectedGist = null;
+      state.validationStates.message = '';
     }
   },
   extraReducers: builder => {
@@ -85,14 +87,18 @@ const slice = createSlice({
       state.selectedGist = null;
     })
     builder.addCase(checkStarStatus.fulfilled, (state, { payload }) => {
-      state.selectedGist.isStarred = payload;
+      if (state.selectedGist) {
+        state.selectedGist.isStarred = payload;
+      }
     })
     builder.addCase(starGist.pending, state => {
       state.validationStates.isLoading = true;
     })
     builder.addCase(starGist.fulfilled, (state, { payload }) => {
       state.validationStates.isLoading = false;
-      state.selectedGist.isStarred = payload;
+      if (state.selectedGist) {
+        state.selectedGist.isStarred = payload;
+      }
     })
     builder.addCase(starGist.rejected, (state, { payload }) => {
       state.validationStates.isLoading = false;
@@ -102,7 +108,9 @@ const slice = createSlice({
     })
     builder.addCase(forkGist.fulfilled, (state, { payload }) => {
       state.validationStates.isLoading = false;
-      state.selectedGist.forkedGistId = payload;
+      if (state.selectedGist) {
+        state.selectedGist.forkedGistId = payload;
+      }
     })
     builder.addCase(forkGist.rejected, state => {
       state.validationStates.isLoading = false;

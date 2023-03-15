@@ -17,11 +17,7 @@ function LoginPage() {
     }
   }, [])
 
-  return (
-    <div>
-      Login Page
-    </div>
-  )
+  return null
 }
 
 export default LoginPage

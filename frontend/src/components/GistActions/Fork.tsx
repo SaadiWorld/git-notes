@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../store";
 import { getForkedGistId, getForksList, getSelectedGistId } from "../../store/selectors/app";
 import { getUserName } from "../../store/selectors/auth";
 import { forkGist } from "../../store/thunks/app";
+import { IFork } from "../../store/types/app";
 
 function Fork() {
   const dispatch = useAppDispatch()
@@ -15,10 +16,10 @@ function Fork() {
   const forkedGistId = useSelector(getForkedGistId); // The id of new gist created after forking
   const forksList = useSelector(getForksList); // Array of those gists which were forks of the original one
 
-  const isAlreadyForked = forksList.find((fork: any) => fork.user.login === userName)
+  const isAlreadyForked = forksList.find((fork: IFork) => fork.user.login === userName)
 
   const handleGistFork = () => {
-    dispatch(forkGist(selectedGistId))
+    selectedGistId && dispatch(forkGist(selectedGistId))
   }
   
   useEffect(() => {

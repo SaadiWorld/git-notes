@@ -4,13 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Alert from '../components/Alerts/GenericAlert';
 import Loader from '../components/Loader';
 import useScrollPosition from '../hooks/useScrollPosition';
-import { IContent, ICreateGistLocalState } from '../services/app';
 import { useAppDispatch } from '../store';
 import { getAppMessage, getIsAppError, getIsAppLoading, getSelectedGistDescription, getSelectedGistFiles, getSelectedGistFilesArray, getSelectedGistId } from '../store/selectors/app';
 import { resetSelectedGist } from '../store/slices/app';
 import { createGist, fetchSingleGist, updateGist } from '../store/thunks/app';
+import { IContent, IFiles } from '../store/types/app';
 import { ALERT_VARIANTS } from '../types/common';
 import { getRandomFileName, isEverythingUnique } from '../utils/functions';
+
+export interface ICreateGistLocalState {
+  description?: string;
+  public: boolean;
+  files: IContent[];
+}
 
 function GistForm() {
   const navigate = useNavigate();
@@ -82,7 +88,7 @@ function GistForm() {
     if (groups.files.length === 1) return;
     const newFiles = [...groups.files];
     const removed = newFiles.splice(index, 1).pop();
-    if (removed?.name && removed?.name in selectedGistFiles) {
+    if (removed?.name && selectedGistFiles && removed?.name in selectedGistFiles) {
       setFilesMap({
         ...filesMap,
         [removed.name]: null
@@ -126,7 +132,7 @@ function GistForm() {
     return true;
   }
 
-  const handleGistAction = (e: any) => {
+  const handleGistAction = () => {
     if (validateForm()) {
       setIsError(false)
       setErrorMessage('')
@@ -134,7 +140,7 @@ function GistForm() {
       //   description,
       //   ...groups
       // })
-      let filesObj: { [key: string]: IContent } = {}
+      let filesObj: IFiles = {}
       let i = 0;
       for (const item of groups.files) {
         if (!item.filename) {
@@ -228,7 +234,7 @@ function GistForm() {
 
           <div className='flex justify-between pb-10'>
             <button id='add-file-btn' type='button' className='btn btn-sm bg-blue-900 text-white border-none' onClick={handleFileAddition}>Add File</button>
-            <button type='button' className='btn btn-sm bg-green-900 text-white border-none' onClick={(e) => handleGistAction(e)}>{!id ? 'Create' : 'Update'}</button>
+            <button type='button' className='btn btn-sm bg-green-900 text-white border-none' onClick={handleGistAction}>{!id ? 'Create' : 'Update'}</button>
           </div>
         </div> :
         <div className="flex h-10 justify-center items-center">{appMessage}</div>

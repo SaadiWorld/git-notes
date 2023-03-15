@@ -12,14 +12,14 @@ function Star() {
 
   const handleGistStar = () => {
     if (isStarred) {
-      dispatch(starGist({ selectedGistId, shouldStarGist: false }));
+      selectedGistId && dispatch(starGist({ selectedGistId, shouldStarGist: false }));
     } else {
-      dispatch(starGist({ selectedGistId, shouldStarGist: true }));
+      selectedGistId && dispatch(starGist({ selectedGistId, shouldStarGist: true }));
     }
   }
   
   useEffect(() => {
-    dispatch(checkStarStatus(selectedGistId))
+    selectedGistId && dispatch(checkStarStatus(selectedGistId))
   }, [selectedGistId])
   
   return (

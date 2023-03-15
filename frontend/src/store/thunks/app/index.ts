@@ -57,8 +57,8 @@ export const starGist = createAppAsyncThunk(
   "app/starGist", 
   async ({ selectedGistId, shouldStarGist }: IStarGists, thunkAPI) => {
     try {
-      const response = shouldStarGist ? await appService.starGist(selectedGistId) : await appService.unstarGist(selectedGistId);
-      const newStarStatus = response.status === 204 && shouldStarGist;
+      const { status } = shouldStarGist ? await appService.starGist(selectedGistId) : await appService.unstarGist(selectedGistId);
+      const newStarStatus = status === 204 && shouldStarGist;
       return thunkAPI.fulfillWithValue(newStarStatus);
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
@@ -69,9 +69,8 @@ export const checkStarStatus = createAppAsyncThunk(
   "app/checkStarStatus", 
   async (gist_id: string, thunkAPI) => {
     try {
-      const response = await appService.checkStarStatus(gist_id);
-      // const selectedGist = getAppPerPage(thunkAPI.getState());
-      const isStarred = response.status === 204;
+      const { status } = await appService.checkStarStatus(gist_id);
+      const isStarred = status === 204;
       return thunkAPI.fulfillWithValue(isStarred);
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
@@ -93,8 +92,8 @@ export const deleteGist = createAppAsyncThunk(
   "app/deleteGist", 
   async (selectedGistId: string, thunkAPI) => {
     try {
-      const response = await appService.deleteGist(selectedGistId);
-      return thunkAPI.fulfillWithValue(response.status === 204);
+      const { status } = await appService.deleteGist(selectedGistId);
+      return thunkAPI.fulfillWithValue(status === 204);
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
     }
@@ -104,8 +103,8 @@ export const createGist = createAppAsyncThunk(
   "app/createGist", 
   async (payload: ICreateGistRequest, thunkAPI) => {
     try {
-      const response = await appService.createGist(payload);
-      return thunkAPI.fulfillWithValue(response.status === 201);
+      const { status } = await appService.createGist(payload);
+      return thunkAPI.fulfillWithValue(status === 201);
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
     }
@@ -115,8 +114,8 @@ export const updateGist = createAppAsyncThunk(
   "app/updateGist", 
   async ({ payload, gistId }: IUpdateGist, thunkAPI) => {
     try {
-      const response = await appService.updateGist(payload, gistId);
-      return thunkAPI.fulfillWithValue(response.status === 200);
+      const { status } = await appService.updateGist(payload, gistId);
+      return thunkAPI.fulfillWithValue(status === 200);
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))
     }

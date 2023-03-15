@@ -11,9 +11,8 @@ function Delete() {
   const navigate = useNavigate();
   const selectedGistId = useSelector(getSelectedGistId);
 
-  const handleDelete = async () => {
-    await dispatch(deleteGist(selectedGistId))
-    navigate('/my-gists');
+  const handleDelete = () => {
+    selectedGistId && dispatch(deleteGist(selectedGistId)).then(()=> navigate('/my-gists'))
   }
   
   return (
