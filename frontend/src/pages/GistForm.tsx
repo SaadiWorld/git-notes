@@ -141,10 +141,8 @@ function GistForm() {
       //   ...groups
       // })
       let filesObj: IFiles = {}
-      let i = 0;
       for (const item of groups.files) {
         if (!item.filename) {
-          i++;
           item.filename = getRandomFileName();
         }
         const key = id && item.name ? item.name : item.filename
