@@ -1,11 +1,13 @@
 interface IAvatarProps {
   url: string;
+  twWidth?: string;             // Width in tailwind format like w-12
+  twHeight?: string;            // Height in tailwind format like h-12
 }
 
-function Avatar({ url }: IAvatarProps) {
+function Avatar({ url, twWidth = 'w-10', twHeight= 'h-10' }: IAvatarProps) {
   return (
-    <div className="btn btn-ghost btn-circle avatar">
-      <div className="w-10 rounded-full">
+    <div className="avatar items-center">
+      <div className={`${twWidth} ${twHeight} rounded-full`}>
         <img src={url} />
       </div>
     </div>

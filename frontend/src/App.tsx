@@ -8,6 +8,7 @@ import GistForm from './pages/GistForm';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
 import MyGistsPage from './pages/MyGists';
+import Profile from './pages/Profile';
 import StarredGistsPage from './pages/StarredGists';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
@@ -43,6 +44,7 @@ function App() {
             <Route path='starred-gists' element={<StarredGistsPage />} />
             <Route path='create-gist' element={<GistForm key={1} />} />
             <Route path='edit-gist/:id' element={<GistForm key={2} />} />
+            <Route path='profile' element={<Profile />} />
           </Route>
           <Route path="*" element={<NoFoundComponent />} />
         </Routes>

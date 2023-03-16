@@ -50,6 +50,7 @@ function GistPage() {
               <GistActions />
             </div>
           </div>
+          { selectedGist.description && <div className="px-2 pb-3">{selectedGist.description}</div> }
           <Gist id={`${id}`} />
         </> :
         <div className="flex h-10 justify-center items-center">{appMessage}</div>
