@@ -2,7 +2,7 @@ import Gist from "react-gist"
 import GistDetail from "../../GistDetail";
 
 interface ICardProps {
-  id: number;
+  id: number | string;
   fileName: string;
   avatar: string;
   ownerName: string;
