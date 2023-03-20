@@ -1,11 +1,8 @@
 import { Navigate, useLocation } from "react-router-dom";
+import { IIsAuthenticatedProps } from ".";
 import Layout from "../components/Layout";
 
-interface IPublicRouteProps {
-  isAuthenticated: boolean;
-}
-
-function PublicRoute({ isAuthenticated }: IPublicRouteProps) {  
+function PublicRoute({ isAuthenticated }: IIsAuthenticatedProps) {  
   const { pathname } = useLocation();
   if (isAuthenticated && pathname === '/login') {
       return <Navigate to="/" replace />

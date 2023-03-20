@@ -1,18 +1,15 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { IIsAuthenticatedProps } from ".";
 import Layout from "../components/Layout";
 
-interface IPublicRouteProps {
-  isAuthenticated: boolean;
-}
-
-function PrivateRoute({ isAuthenticated }: IPublicRouteProps) {  
+function PrivateRoute({ isAuthenticated }: IIsAuthenticatedProps) {  
   if (!isAuthenticated) {
       return <Navigate to="/login" replace />
   }
 
   return (
     <Layout isAuthenticated={isAuthenticated} />
-    );
+  );
 }
 
 export default PrivateRoute;
