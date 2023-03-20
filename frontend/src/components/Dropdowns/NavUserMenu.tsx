@@ -24,7 +24,7 @@ function NavUserMenu() {
   };
 
   return (
-    <div className="dropdown dropdown-end">
+    <div data-testid="nav-avatar" className="dropdown dropdown-end">
       <label tabIndex={0} className='cursor-pointer'>
         <Avatar url={avatarUrl} />
       </label>
