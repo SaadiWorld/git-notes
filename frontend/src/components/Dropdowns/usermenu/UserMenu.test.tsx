@@ -1,7 +1,8 @@
 import { fireEvent } from '@testing-library/react';
 import store from '../../../store';
-import { INITIAL_STATE } from '../../../store/slices/auth';
+import reducer, { INITIAL_STATE, resetAuthData } from '../../../store/slices/auth';
 import { renderWithProviders } from '../../../test-utils';
+import { AUTH_STATE_MOCK } from '../../../__mocks__/auth';
 import NavUserMenu from './UserMenu';
 
 describe('NavUserMenu component', () => {
@@ -28,13 +29,15 @@ describe('NavUserMenu component', () => {
   });
 
   test('should handle logout', () => {
+    const authState = store.getState().auth;
     jest.spyOn(Storage.prototype, 'clear');
     const { getByText } = renderWithProviders(<NavUserMenu />);
     const logoutLink = getByText('Logout');
     fireEvent.click(logoutLink);
     expect(localStorage.clear).toHaveBeenCalled();
-    expect(store.getState().auth.token).toEqual(INITIAL_STATE.token);
-    expect(store.getState().auth.user).toEqual(INITIAL_STATE.user);
+    expect(reducer(AUTH_STATE_MOCK, resetAuthData)).toEqual(INITIAL_STATE)
+    expect(authState.token).toEqual(INITIAL_STATE.token);
+    expect(authState.user).toEqual(INITIAL_STATE.user);
   });
 
   test('should navigate to correct link when clicked', () => {

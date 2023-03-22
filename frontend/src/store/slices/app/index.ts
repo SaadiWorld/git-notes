@@ -3,7 +3,7 @@ import { GIST_VIEW, INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../../t
 import { checkStarStatus, createGist, deleteGist, fetchGists, fetchSingleGist, forkGist, starGist, updateGist } from "../../thunks/app";
 import { IGist } from "../../types/app";
 
-interface IInitialState {
+interface IAppState {
   page: number;
   per_page: number;
   total_gists: number;
@@ -20,7 +20,7 @@ interface IInitialState {
   }
 }
 
-const INITIAL_STATE: IInitialState = { 
+const INITIAL_STATE: IAppState = { 
   page: INITIAL_PAGE, 
   per_page: PER_PAGE, 
   total_gists: TOTAL_GISTS_COUNT,

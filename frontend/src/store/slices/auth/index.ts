@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { attemptLogin } from "../../thunks/auth";
 import { IAuthUser } from "../../types/auth";
 
-interface IInitialState {
+export interface IAuthState {
   token: string;
   user: IAuthUser | null;
   validationStates: {
@@ -13,7 +13,7 @@ interface IInitialState {
   }
 }
 
-export const INITIAL_STATE: IInitialState = { 
+export const INITIAL_STATE: IAuthState = { 
   token: '',
   user: null,
   validationStates: {
