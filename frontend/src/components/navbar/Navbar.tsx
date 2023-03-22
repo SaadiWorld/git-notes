@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getClientId, getRedirectUri } from "../../store/selectors/app";
 import NavUserMenu from "../Dropdowns/usermenu/UserMenu";
-import Search from "../Search";
+import Search from "../search/Search";
 
 interface INavbarProps {
   isAuthenticated: boolean;
