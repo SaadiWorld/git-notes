@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../store';
-import { getUserAvatar } from '../../store/selectors/auth';
-import { resetAuthData } from '../../store/slices/auth';
-import Avatar from '../Avatar';
+import { useAppDispatch } from '../../../store';
+import { getUserAvatar } from '../../../store/selectors/auth';
+import { resetAuthData } from '../../../store/slices/auth';
+import Avatar from '../../Avatar';
 
 function NavUserMenu() {
   const dispatch = useAppDispatch();

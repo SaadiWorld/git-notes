@@ -13,7 +13,7 @@ interface IInitialState {
   }
 }
 
-const INITIAL_STATE: IInitialState = { 
+export const INITIAL_STATE: IInitialState = { 
   token: '',
   user: null,
   validationStates: {
