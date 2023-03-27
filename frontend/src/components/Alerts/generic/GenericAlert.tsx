@@ -1,5 +1,5 @@
 import { CheckCircleIcon, ExclamationTriangleIcon, InformationCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import { ALERT_VARIANTS } from "../../types/common";
+import { ALERT_VARIANTS } from "../../../types/common";
 
 interface IAlertProps {
   message: string;
@@ -12,12 +12,12 @@ function Alert({ message, variant, onClose }: IAlertProps) {
     <div className={`alert ${variant} shadow-lg mb-10`}>
       <div>
         {variant === ALERT_VARIANTS.SUCCESS ?
-          <CheckCircleIcon className="h-5 w-6" /> :
+          <CheckCircleIcon data-testid='icon' data-icon='check-circle' className="h-5 w-6" /> :
           variant === ALERT_VARIANTS.WARNING ?
-            <ExclamationTriangleIcon className="h-5 w-6" /> :
+            <ExclamationTriangleIcon data-testid='icon' data-icon='exclamation-triangle' className="h-5 w-6" /> :
             variant === ALERT_VARIANTS.ERROR ?
-              <XCircleIcon className="h-5 w-6"/> :
-              <InformationCircleIcon className="h-5 w-6"/>
+              <XCircleIcon data-testid='icon' data-icon='times-circle' className="h-5 w-6" /> :
+              <InformationCircleIcon data-testid='icon' data-icon='info-circle' className="h-5 w-6" />
         }
         <span>{message}</span>
       </div>
