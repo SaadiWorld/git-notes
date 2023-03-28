@@ -1,4 +1,4 @@
-import Avatar from './Avatar';
+import Avatar from '../Avatar';
 
 
 interface IGistDetailProps {
@@ -13,7 +13,7 @@ function GistDetail({fileName, avatar, ownerName, time}: IGistDetailProps) {
     <div className="p-4 flex">
       <Avatar url={avatar} />
       <div className="pl-2 grid">
-        <p className=" overflow-hidden text-ellipsis whitespace-nowrap">{ownerName} / <strong>{fileName}</strong></p>
+        <p data-testid="detail-info" className="overflow-hidden text-ellipsis whitespace-nowrap">{ownerName} / <strong>{fileName}</strong></p>
         <p>{time}</p>
       </div>
     </div>
