@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-function NoFoundComponent() {
+function NoFound() {
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content text-center">
@@ -14,4 +14,4 @@ function NoFoundComponent() {
   )
 }
 
-export default NoFoundComponent
+export default NoFound

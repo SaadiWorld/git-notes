@@ -2,7 +2,7 @@ import { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Loader from '../components/Loader';
-import NoFoundComponent from '../components/NoFoundComponent';
+import NoFoundComponent from '../components/NoFound';
 import GistPage from '../pages/Gist';
 import GistForm from '../pages/GistForm';
 import HomePage from '../pages/Home';
