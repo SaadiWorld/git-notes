@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store";
 import { getSelectedGistId } from "../../store/selectors/app";
 import { deleteGist } from "../../store/thunks/app";
-import Modal from "../Modals/generic/GenericModal";
+import Modal from "../Modals/GenericModal";
 
 function Delete() {
   const dispatch = useAppDispatch()

@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getClientId, getRedirectUri } from "../../store/selectors/app";
-import NavUserMenu from "../Dropdowns/usermenu/UserMenu";
-import Search from "../search/Search";
+import NavUserMenu from "../Dropdowns/UserMenu";
+import Search from "../Search";
 
 interface INavbarProps {
   isAuthenticated: boolean;

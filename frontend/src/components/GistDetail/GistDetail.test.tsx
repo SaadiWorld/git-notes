@@ -15,7 +15,18 @@ describe('GistDetail component', () => {
     const fileNameElement = getByText('test_file.ts');
     expect(completeElement.textContent).toBe('Saad Salman / test_file.ts')
     expect(fileNameElement.textContent).toBe('test_file.ts');
+  });
+
+  test('renders file name as bold', () => {
+    const { getByText } = renderWithProviders(<GistDetail {...props} />);
+    const fileNameElement = getByText('test_file.ts');
     expect(fileNameElement).toHaveStyle('font-weight: bold');
+  });
+
+  test('truncates the long text', () => {
+    const { getByTestId } = renderWithProviders(<GistDetail {...props} />);
+    const completeElement = getByTestId('detail-info');
+    expect(completeElement).toHaveClass('overflow-hidden text-ellipsis whitespace-nowrap');
   });
 
   test('renders the time', () => {

@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { renderWithProviders } from "../../test-utils";
-import Navbar from "./Navbar";
+import Navbar from ".";
 
 describe("Navbar Common View", () => {
   test("displays 'E M U M B A' title if loggedin", () => {

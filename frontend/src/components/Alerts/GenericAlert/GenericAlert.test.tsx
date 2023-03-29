@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import Alert from './GenericAlert';
+import Alert from '.';
 import { ALERT_VARIANTS } from '../../../types/common';
 import { renderWithProviders } from '../../../test-utils';
 import { CheckCircleIcon, ExclamationTriangleIcon, InformationCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";

@@ -3,7 +3,7 @@ import store from '../../../store';
 import reducer, { INITIAL_STATE, resetAuthData } from '../../../store/slices/auth';
 import { renderWithProviders } from '../../../test-utils';
 import { AUTH_STATE_MOCK } from '../../../__mocks__/auth';
-import NavUserMenu from './UserMenu';
+import NavUserMenu from '.';
 
 describe('NavUserMenu component', () => {
   test('render avatar and should not render menu options', () => {

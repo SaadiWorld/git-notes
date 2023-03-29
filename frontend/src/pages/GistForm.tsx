@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import Alert from '../components/Alerts/generic/GenericAlert';
+import Alert from '../components/Alerts/GenericAlert';
 import Loader from '../components/Loader';
 import useScrollPosition from '../hooks/useScrollPosition';
 import { useAppDispatch } from '../store';

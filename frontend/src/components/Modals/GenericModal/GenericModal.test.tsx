@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import { renderWithProviders } from '../../../test-utils';
-import Modal from './GenericModal';
+import Modal from '.';
 
 const onClick = jest.fn();
 

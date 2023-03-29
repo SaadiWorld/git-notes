@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { renderWithProviders } from '../../test-utils';
-import Search from './Search';
+import Search from '.';
 
 describe('Search', () => {
   test('renders the input element', () => {
