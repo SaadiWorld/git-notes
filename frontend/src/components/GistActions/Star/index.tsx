@@ -1,9 +1,9 @@
 import { StarIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../store";
-import { getIsStarredGist, getSelectedGistId } from "../../store/selectors/app";
-import { checkStarStatus, starGist } from "../../store/thunks/app";
+import { useAppDispatch } from "../../../store";
+import { getIsStarredGist, getSelectedGistId } from "../../../store/selectors/app";
+import { checkStarStatus, starGist } from "../../../store/thunks/app";
 
 function Star() {
   const dispatch = useAppDispatch()

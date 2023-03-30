@@ -18,7 +18,7 @@ function Modal({title, subtitle, onClick}: IModalProps) {
           <h3 className="font-bold text-lg">{title}</h3>
           <p className="py-4">{subtitle}</p>
           <div className="modal-action">
-            <label htmlFor="generic-modal" className="btn" onClick={onClick}>Yes</label>
+            <label data-testid="yes-btn" htmlFor="generic-modal" className="btn" onClick={onClick}>Yes</label>
           </div>
         </div>
       </div>

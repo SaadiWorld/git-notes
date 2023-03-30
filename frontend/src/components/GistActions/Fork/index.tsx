@@ -2,11 +2,11 @@ import { BarsArrowUpIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../store";
-import { getForkedGistId, getForksList, getSelectedGistId } from "../../store/selectors/app";
-import { getUserName } from "../../store/selectors/auth";
-import { forkGist } from "../../store/thunks/app";
-import { IFork } from "../../store/types/app";
+import { useAppDispatch } from "../../../store";
+import { getForkedGistId, getForksList, getSelectedGistId } from "../../../store/selectors/app";
+import { getUserName } from "../../../store/selectors/auth";
+import { forkGist } from "../../../store/thunks/app";
+import { IFork } from "../../../store/types/app";
 
 function Fork() {
   const dispatch = useAppDispatch()

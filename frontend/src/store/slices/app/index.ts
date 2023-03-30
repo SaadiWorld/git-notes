@@ -37,7 +37,7 @@ export const INITIAL_STATE: IAppState = {
   }
 };
 
-const slice = createSlice({
+export const slice = createSlice({
   name: 'app',
   initialState: INITIAL_STATE,
   reducers: {
