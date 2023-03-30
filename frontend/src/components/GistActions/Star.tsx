@@ -23,7 +23,7 @@ function Star() {
   }, [selectedGistId])
   
   return (
-    <StarIcon className={`cursor-pointer ${isStarred ? 'text-yellow-400 fill-yellow-400' : ''}`} height={20} width={20} onClick={handleGistStar}/>
+    <StarIcon data-testid="star-icon" className={`cursor-pointer ${isStarred ? 'text-yellow-400 fill-yellow-400' : ''}`} height={20} width={20} onClick={handleGistStar}/>
   )
 }
 

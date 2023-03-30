@@ -28,7 +28,7 @@ function Fork() {
   
   return (
     <>
-      { !isAlreadyForked && <BarsArrowUpIcon className="cursor-pointer ml-2" height={20} width={20} onClick={handleGistFork} /> }
+      { !isAlreadyForked && <BarsArrowUpIcon data-testid="fork-icon" className="cursor-pointer ml-2" height={20} width={20} onClick={handleGistFork} /> }
     </>
   )
 }

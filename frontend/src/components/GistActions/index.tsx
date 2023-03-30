@@ -25,7 +25,7 @@ function GistAction() {
         <>
           {userName === gistOwnerName ? (
             <>
-              <PencilSquareIcon className="cursor-pointer" height={20} width={20} onClick={() => navigate(`/edit-gist/${id}`)} />
+              <PencilSquareIcon data-testid="pencil-icon" className="cursor-pointer" height={20} width={20} onClick={() => navigate(`/edit-gist/${id}`)} />
               <Delete />
             </>
           ) : (

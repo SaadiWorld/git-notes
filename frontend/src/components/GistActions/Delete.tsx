@@ -18,7 +18,7 @@ function Delete() {
   return (
     <>
     <label htmlFor="generic-modal">
-      <TrashIcon className="cursor-pointer ml-2" height={20} width={20} />
+      <TrashIcon data-testid="delete-icon" className="cursor-pointer ml-2" height={20} width={20} />
     </label>
     <Modal title='Delete Gist' subtitle='Are you sure you want to delete this gist?' onClick={handleDelete} />
     </>

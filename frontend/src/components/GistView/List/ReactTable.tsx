@@ -74,8 +74,8 @@ function Table() {
   const data = useMemo(() => gists?.map(gist => ({
       avatar: gist.owner.avatar_url || '',
       name: gist.owner.login || '',
-      date: gist.updated_at ? format(new Date(gist.created_at), "dd/MM/yyyy") : '',
-      time: gist.updated_at ? format(new Date(gist.created_at), "p") : '',
+      date: gist.updated_at ? format(new Date(gist.updated_at), "dd/MM/yyyy") : '',
+      time: gist.updated_at ? format(new Date(gist.updated_at), "p") : '',
       description: gist.description || '-',
       notebook_name: gist.id || '',
       // star: gist.id || '',

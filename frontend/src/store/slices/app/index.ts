@@ -3,13 +3,13 @@ import { GIST_VIEW, INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../../t
 import { checkStarStatus, createGist, deleteGist, fetchGists, fetchSingleGist, forkGist, starGist, updateGist } from "../../thunks/app";
 import { IGist } from "../../types/app";
 
-interface IAppState {
+export interface IAppState {
   page: number;
   per_page: number;
   total_gists: number;
   gist_view: GIST_VIEW;
   gists: Array<IGist> | null;
-  selectedGist: IGist | null; // TODO: Adding proper type for the gist object
+  selectedGist: IGist | null;
   client_id?: string;
   redirect_uri?: string;
   validationStates: {
@@ -20,7 +20,7 @@ interface IAppState {
   }
 }
 
-const INITIAL_STATE: IAppState = { 
+export const INITIAL_STATE: IAppState = { 
   page: INITIAL_PAGE, 
   per_page: PER_PAGE, 
   total_gists: TOTAL_GISTS_COUNT,
