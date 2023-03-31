@@ -7,7 +7,7 @@ import { renderWithProviders } from "../../../test-utils";
 import { GIST_ACTIONS_MOCK_B } from "../../../__mocks__/misc";
 
 export const handlers = [
-  rest.delete(`https://api.github.com/gists/${GIST_ACTIONS_MOCK_B.app.selectedGist.id}`, (req, res, ctx) => {
+  rest.delete(`https://api.github.com/gists/:gist_id`, (req, res, ctx) => {
     return res(ctx.status(204), ctx.delay(150))
   })
 ]

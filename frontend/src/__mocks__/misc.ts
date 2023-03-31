@@ -1,6 +1,9 @@
 import { APP_STATE_MOCK } from "./app";
 import { AUTH_STATE_MOCK } from "./auth";
 
+export const SELECTED_GIST_ID_A = '213431243241234321';
+export const SELECTED_GIST_ID_B = '241234321213431243';
+
 export const GIST_ACTIONS_MOCK_A = {
   auth: {
     ...AUTH_STATE_MOCK,
@@ -11,7 +14,7 @@ export const GIST_ACTIONS_MOCK_A = {
   app: {
     ...APP_STATE_MOCK,
     selectedGist: {
-      id: "213431243241234321",
+      id: SELECTED_GIST_ID_A,
       files: {},
       updated_at: "2023-03-30T06:03:44Z",
       owner: {
@@ -31,7 +34,7 @@ export const GIST_ACTIONS_MOCK_B = {
   app: {
     ...APP_STATE_MOCK,
     selectedGist: {
-      id: "213431243241234321",
+      id: SELECTED_GIST_ID_B,
       files: {},
       updated_at: "2023-03-30T06:03:44Z",
       owner: {
@@ -41,3 +44,44 @@ export const GIST_ACTIONS_MOCK_B = {
   }
 }
 
+export const STAR_MOCK_A = {
+  auth: {
+    ...AUTH_STATE_MOCK,
+    user: {
+      login: "Saad",
+    },
+  },
+  app: {
+    ...APP_STATE_MOCK,
+    selectedGist: {
+      id: SELECTED_GIST_ID_A,
+      files: {},
+      updated_at: "2023-03-30T06:03:44Z",
+      owner: {
+        login: "Salman",
+      },
+      isStarred: false
+    }
+  }
+}
+
+export const STAR_MOCK_B = {
+  auth: {
+    ...AUTH_STATE_MOCK,
+    user: {
+      login: "Taha",
+    },
+  },
+  app: {
+    ...APP_STATE_MOCK,
+    selectedGist: {
+      id: SELECTED_GIST_ID_B,
+      files: {},
+      updated_at: "2023-03-30T06:03:44Z",
+      owner: {
+        login: "Salman",
+      },
+      isStarred: true
+    }
+  }
+}
