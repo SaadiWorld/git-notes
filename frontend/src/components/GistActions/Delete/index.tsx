@@ -12,11 +12,9 @@ function Delete() {
   const selectedGistId = useSelector(getSelectedGistId);
 
   const handleDelete = () => {
-    if (selectedGistId) {
-      dispatch(deleteGist(selectedGistId))
-      .unwrap()
-      .then(() => { navigate('/my-gists') })
-    }
+    selectedGistId && dispatch(deleteGist(selectedGistId))
+    .unwrap()
+    .then(() => { navigate('/my-gists') })
   }
 
   return (
