@@ -93,7 +93,7 @@ function Table() {
   } = useTable({ columns, data, manualPagination: true })
 
   return (
-    <div className="overflow-x-auto w-full">
+    <div data-testid="list-view" className="overflow-x-auto w-full">
       <table className="table w-full" {...getTableProps()}>
         <thead id="table-header">
           { headerGroups.map(headerGroup => (
