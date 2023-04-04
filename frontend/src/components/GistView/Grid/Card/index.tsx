@@ -1,5 +1,5 @@
 import Gist from "react-gist"
-import GistDetail from "../../GistDetail";
+import GistDetail from "../../../GistDetail";
 
 interface ICardProps {
   id: number | string;
@@ -11,7 +11,7 @@ interface ICardProps {
 
 function Card({ id, fileName, avatar, ownerName, time }: ICardProps) {
   return (
-    <div className="card card-compact w-full bg-base-100 shadow-xl mb-4">
+    <div data-testid="gist-card" className="card card-compact w-full bg-base-100 shadow-xl mb-4">
       <Gist id={`${id}`} />
       <GistDetail fileName={fileName} avatar={avatar} ownerName={ownerName} time={time} />
     </div>
