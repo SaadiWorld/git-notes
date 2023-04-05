@@ -69,8 +69,8 @@
       "axios": "axios/dist/node/axios.cjs"
     },
     "collectCoverageFrom": [
-      "src/components/**/*.{js,jsx,ts,tsx}",
-      "src/pages/**/*.{js,jsx,ts,tsx}"
+      "src/components/**/*.{jsx,tsx}",
+      "src/pages/**/*.{jsx,tsx}"
     ]
   }
 }

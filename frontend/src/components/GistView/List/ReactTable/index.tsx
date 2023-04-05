@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Column, useTable } from 'react-table';
-import { getGists } from "../../../store/selectors/app";
+import { getGists } from "../../../../store/selectors/app";
 import { format } from "date-fns";
-import Avatar from "../../Avatar";
+import Avatar from "../../../Avatar";
 import { useNavigate } from "react-router-dom";
 // import StarFork from "../../StarFork";
 // import { GIST_UPDATE_ACTIONS } from "../../../types/common";
@@ -72,12 +72,12 @@ function Table() {
   );
 
   const data = useMemo(() => gists?.map(gist => ({
-      avatar: gist.owner.avatar_url || '',
-      name: gist.owner.login || '',
-      date: gist.updated_at ? format(new Date(gist.updated_at), "dd/MM/yyyy") : '',
-      time: gist.updated_at ? format(new Date(gist.updated_at), "p") : '',
+      avatar: gist.owner.avatar_url,
+      name: gist.owner.login,
+      date: format(new Date(gist.updated_at), "dd/MM/yyyy"),
+      time: format(new Date(gist.updated_at), "p"),
       description: gist.description || '-',
-      notebook_name: gist.id || '',
+      notebook_name: gist.id,
       // star: gist.id || '',
       // fork: gist.id || '',
     })) || [],
@@ -122,6 +122,7 @@ function Table() {
             return (
               // Apply the row props
               <tr 
+                data-testid="gist-row"
                 {...row.getRowProps()}
                 onClick={() => navigate(`/gist/${row.original.notebook_name}`)}
                 className='cursor-pointer'
