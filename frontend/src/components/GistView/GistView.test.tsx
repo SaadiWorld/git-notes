@@ -53,7 +53,7 @@ describe('Gist View Component', () => {
   test('clicking on the page link changes the page', () => {
     const { container } = renderWithProviders(<GistView />, { preloadedState: { auth: AUTH_STATE_MOCK, app: APP_STATE_MOCK }});
     const allPageLinks = container.getElementsByClassName('numbered-link');
-    const randomElementIndex = Math.floor(Math.random() * allPageLinks.length);
+    const randomElementIndex = Math.floor(Math.random() * (allPageLinks.length - 1) + 1);
     const pageLink = allPageLinks[randomElementIndex];
     expect(pageLink).not.toHaveClass('bg-primary')
     fireEvent.click(pageLink)
