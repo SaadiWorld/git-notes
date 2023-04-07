@@ -1,8 +1,8 @@
 import { ClipboardDocumentIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom";
-import Avatar from "../components/Avatar"
-import { getName, getUserAvatar, getUserBio, getUserBlog, getUserCompany, getUserEmail, getUserLocation, getUserName, getUserTotalFollowers, getUserTotalFollowing, getUserTotalGistsCount, getUserTotalReposCount } from "../store/selectors/auth"
+import Avatar from "../../components/Avatar"
+import { getName, getUserAvatar, getUserBio, getUserBlog, getUserCompany, getUserEmail, getUserLocation, getUserName, getUserTotalFollowers, getUserTotalFollowing, getUserTotalGistsCount, getUserTotalReposCount } from "../../store/selectors/auth"
 
 function Profile() {
   const name = useSelector(getName); 
