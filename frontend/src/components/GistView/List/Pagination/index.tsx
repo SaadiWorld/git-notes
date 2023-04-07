@@ -11,7 +11,6 @@ const Pagination = ({ totalRows, rowsPerPage, pageChangeHandler }: IPaginationPr
 
   const handlePageChange = (selectedItem: { selected: number }) => {
     const { selected: selectedPageNumber } = selectedItem;
-    console.log(selectedPageNumber)
     pageChangeHandler(selectedPageNumber + 1);
   }
 
