@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import Gist from "react-gist";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import GistActions from "../components/GistActions";
-import GistDetail from "../components/GistDetail";
-import Loader from "../components/Loader";
-import { useAppDispatch } from "../store";
-import { getAppMessage, getIsAppError, getIsAppLoading, getSelectedGist } from "../store/selectors/app";
-import { resetSelectedGist } from "../store/slices/app";
-import { fetchSingleGist } from "../store/thunks/app";
+import GistActions from "../../components/GistActions";
+import GistDetail from "../../components/GistDetail";
+import Loader from "../../components/Loader";
+import { useAppDispatch } from "../../store";
+import { getAppMessage, getIsAppError, getIsAppLoading, getSelectedGist } from "../../store/selectors/app";
+import { resetSelectedGist } from "../../store/slices/app";
+import { fetchSingleGist } from "../../store/thunks/app";
 
 function GistPage() {
   const { id } = useParams();
@@ -38,7 +38,7 @@ function GistPage() {
     <div className="h-full relative"> 
       { isAppLoading && <Loader /> }
       { isValidGist && selectedGist ?
-        <>
+        <div data-testid="gist-content">
           <div className="flex justify-between items-center">
             <GistDetail
               avatar={selectedGist.owner.avatar_url}
@@ -50,10 +50,10 @@ function GistPage() {
               <GistActions />
             </div>
           </div>
-          { selectedGist.description && <div className="px-2 pb-3">{selectedGist.description}</div> }
+          { selectedGist.description && <div data-testid="gist-description" className="px-2 pb-3">{selectedGist.description}</div> }
           <Gist id={`${id}`} />
-        </> :
-        <div className="flex h-10 justify-center items-center">{appMessage}</div>
+        </div> :
+        <div data-testid="error-message" className="flex h-10 justify-center items-center">{appMessage}</div>
       }
     </div>
   )

@@ -10,6 +10,7 @@ export const GISTS = [
     id: "5617457363pa83h57y40dk136zo20712",
     files: {},
     updated_at: "2022-06-22T17:31:40Z",
+    description: 'This is a dummy gist',
     owner: {
       login: "lsitlinton0",
       id: 977011352,
