@@ -1,3 +1,25 @@
+import { GIST_VIEW } from "../../types/common";
+
+// APP STATE
+export interface IAppState {
+  page: number;
+  per_page: number;
+  total_gists: number;
+  gist_view: GIST_VIEW;
+  gists: Array<IGist> | null;
+  selectedGist: IGist | null;
+  client_id?: string;
+  redirect_uri?: string;
+  validationStates: {
+    message?: string;
+    isLoading: boolean;
+    isSuccess: boolean;
+    isError: boolean;
+  }
+}
+
+
+// OTHERS
 export interface IGist {
   url?: string
   forks_url?: string

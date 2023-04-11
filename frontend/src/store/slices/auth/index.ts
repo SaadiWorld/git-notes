@@ -1,28 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { AUTH_INITIAL_STATE } from "../../../__mocks__/auth";
 import { attemptLogin } from "../../thunks/auth";
-import { IAuthUser } from "../../types/auth";
 
-export interface IAuthState {
-  token: string;
-  user: IAuthUser | null;
-  validationStates: {
-    message?: string;
-    isLoading: boolean;
-    isSuccess: boolean;
-    isError: boolean;
-  }
-}
-
-export const INITIAL_STATE: IAuthState = { 
-  token: '',
-  user: null,
-  validationStates: {
-    message: '',
-    isLoading: false,
-    isSuccess: false,
-    isError: false,
-  }
-}
+const INITIAL_STATE = AUTH_INITIAL_STATE;
 
 const slice = createSlice({
   name: 'auth',

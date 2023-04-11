@@ -1,13 +1,13 @@
 import { fireEvent } from '@testing-library/react';
-import store from '../../../store';
-import reducer, { INITIAL_STATE, resetAuthData } from '../../../store/slices/auth';
+import reducer, { resetAuthData } from '../../../store/slices/auth';
 import { renderWithProviders } from '../../../test-utils';
-import { AUTH_STATE_MOCK } from '../../../__mocks__/auth';
-import NavUserMenu from '.';
+import { AUTH_INITIAL_STATE, AUTH_STATE_MOCK } from '../../../__mocks__/auth';
+import UserMenu from '.';
+import { APP_STATE_MOCK } from '../../../__mocks__/app';
 
-describe('NavUserMenu component', () => {
+describe('UserMenu component', () => {
   test('render avatar and should not render menu options', () => {
-    const { getByTestId, queryByText } = renderWithProviders(<NavUserMenu />);
+    const { getByTestId, queryByText } = renderWithProviders(<UserMenu />);
 
     const avatarElement = getByTestId('nav-avatar');
     expect(avatarElement).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('NavUserMenu component', () => {
   });
 
   test('should render menu options when avatar is clicked', () => {
-    const { getByTestId, getByText } = renderWithProviders(<NavUserMenu />);
+    const { getByTestId, getByText } = renderWithProviders(<UserMenu />);
 
     const avatarElement = getByTestId('nav-avatar');
     fireEvent.click(avatarElement);
@@ -51,23 +51,29 @@ describe('NavUserMenu component', () => {
   });
 
   test('should handle logout', () => {
-    const authState = store.getState().auth;
     jest.spyOn(Storage.prototype, 'clear');
+    const { getByText, getByTestId, store } = renderWithProviders(<UserMenu />, { preloadedState: { auth: AUTH_STATE_MOCK, app: APP_STATE_MOCK } });
+    const authState = store.getState().auth;
+    expect(authState.token).toEqual(AUTH_STATE_MOCK.token);
+    expect(authState.user).toEqual(AUTH_STATE_MOCK.user);
+    expect(JSON.stringify(authState)).toEqual(JSON.stringify(AUTH_STATE_MOCK));
 
-    const { getByText, getByTestId } = renderWithProviders(<NavUserMenu />);
     const avatarElement = getByTestId('nav-avatar');
     fireEvent.click(avatarElement);
-
     const logoutLink = getByText('Logout');
     fireEvent.click(logoutLink);
     expect(localStorage.clear).toHaveBeenCalled();
-    expect(reducer(AUTH_STATE_MOCK, resetAuthData)).toEqual(INITIAL_STATE)
-    expect(authState.token).toEqual(INITIAL_STATE.token);
-    expect(authState.user).toEqual(INITIAL_STATE.user);
+
+    const authStateAfterClear = store.getState().auth;
+    console.log('jaaaaaaaaaaaaaaaaaaaani 0 bro2', authStateAfterClear)
+    expect(authStateAfterClear.token).toEqual(AUTH_INITIAL_STATE.token);
+    expect(authStateAfterClear.user).toEqual(AUTH_INITIAL_STATE.user);
+    expect(JSON.stringify(authStateAfterClear)).toEqual(JSON.stringify(AUTH_INITIAL_STATE));
+
   });
 
   test('should navigate to correct link when clicked', () => {
-    const { getByText, getByTestId } = renderWithProviders(<NavUserMenu />);
+    const { getByText, getByTestId } = renderWithProviders(<UserMenu />);
     const avatarElement = getByTestId('nav-avatar');
 
     fireEvent.click(avatarElement);
@@ -92,7 +98,7 @@ describe('NavUserMenu component', () => {
   });
 
   test('should close the menu when clicking outside', () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(<NavUserMenu />);
+    const { getByTestId, queryByTestId } = renderWithProviders(<UserMenu />);
     fireEvent.click(getByTestId('nav-avatar'));
     expect(getByTestId('user-menu-body')).toBeInTheDocument();
     fireEvent.click(document.body);

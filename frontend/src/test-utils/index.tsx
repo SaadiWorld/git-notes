@@ -28,7 +28,6 @@ export function renderWithProviders(
   }: ExtendedRenderOptions = {}
 ) {
   function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
-    console.log('initialentries', initialEntries)
     return (
       <Provider store={store}>
         { initialEntries ?

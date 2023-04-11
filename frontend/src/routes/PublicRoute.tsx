@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { IIsAuthenticatedProps } from ".";
 import Layout from "../components/Layout";
+import { IIsAuthenticatedProps } from "../types/common";
 
 function PublicRoute({ isAuthenticated }: IIsAuthenticatedProps) {  
   const { pathname } = useLocation();

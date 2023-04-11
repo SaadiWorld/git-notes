@@ -1,6 +1,6 @@
 import { configureStore, PreloadedState } from '@reduxjs/toolkit'
 import rootReducer from './slices'
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   return configureStore({

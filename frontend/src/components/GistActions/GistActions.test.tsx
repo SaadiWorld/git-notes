@@ -1,9 +1,9 @@
 import { fireEvent } from '@testing-library/react';
 import GistActions from '.';
 import { RootState } from '../../store';
-import { INITIAL_STATE as APP_INITIAL_STATE } from '../../store/slices/app';
-import { INITIAL_STATE as AUTH_INITIAL_STATE } from '../../store/slices/auth';
 import { renderWithProviders } from '../../test-utils';
+import { APP_INITIAL_STATE } from '../../__mocks__/app';
+import { AUTH_INITIAL_STATE } from '../../__mocks__/auth';
 import { GIST_ACTIONS_MOCK_A, GIST_ACTIONS_MOCK_B } from '../../__mocks__/misc';
 
 

@@ -1,3 +1,17 @@
+// AUTH STATE
+export interface IAuthState {
+  token: string;
+  user: IAuthUser | null;
+  validationStates: {
+    message?: string;
+    isLoading: boolean;
+    isSuccess: boolean;
+    isError: boolean;
+  }
+}
+
+
+// OTHERS
 export interface IAuthData {
   user: IAuthUser
   token: string

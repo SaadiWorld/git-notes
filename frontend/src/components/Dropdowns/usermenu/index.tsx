@@ -6,7 +6,7 @@ import { getUserAvatar } from '../../../store/selectors/auth';
 import { resetAuthData } from '../../../store/slices/auth';
 import Avatar from '../../Avatar';
 
-function NavUserMenu() {
+function UserMenu() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const avatarUrl =  useSelector(getUserAvatar);
@@ -81,4 +81,4 @@ function NavUserMenu() {
   )
 }
 
-export default NavUserMenu
+export default UserMenu

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getClientId, getRedirectUri } from "../../store/selectors/app";
-import NavUserMenu from "../Dropdowns/UserMenu";
+import UserMenu from "../Dropdowns/UserMenu";
 import Search from "../Search";
 
 interface INavbarProps {
@@ -21,7 +21,7 @@ function Navbar({ isAuthenticated }: INavbarProps) {
         <div className="flex gap-2 items-end">
           <Search />
           {isAuthenticated ?
-            <NavUserMenu /> :
+            <UserMenu /> :
             <div className="navbar-end">
               <Link to={`https://github.com/login/oauth/authorize?client_id=${client_id}&scope=gist&redirect_uri=${redirect_uri}`} className="btn">Login</Link>
             </div>

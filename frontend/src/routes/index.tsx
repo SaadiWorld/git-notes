@@ -16,10 +16,6 @@ import { useAppDispatch } from '../store';
 import { getToken, getUser } from '../store/selectors/auth';
 import { setAuthData } from '../store/slices/auth';
 
-export interface IIsAuthenticatedProps {
-  isAuthenticated: boolean;
-}
-
 function AppRoutes() {
   const dispatch = useAppDispatch();
   const storeToken = useSelector(getToken);

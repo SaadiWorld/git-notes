@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import { IIsAuthenticatedProps } from ".";
 import Layout from "../components/Layout";
+import { IIsAuthenticatedProps } from "../types/common";
 
 function PrivateRoute({ isAuthenticated }: IIsAuthenticatedProps) {  
   if (!isAuthenticated) {

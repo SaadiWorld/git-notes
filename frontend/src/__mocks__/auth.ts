@@ -1,5 +1,16 @@
-import { IAuthState } from "../store/slices/auth";
+import { IAuthState } from "../store/types/auth";
 import { VALIDATION_STATES_MOCK } from "./common";
+
+export const AUTH_INITIAL_STATE: IAuthState = { 
+  token: '',
+  user: null,
+  validationStates: {
+    message: '',
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
+  }
+}
 
 export const AUTH_STATE_MOCK: IAuthState = {
   user: {

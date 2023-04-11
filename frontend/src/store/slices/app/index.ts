@@ -1,41 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { GIST_VIEW, INITIAL_PAGE, PER_PAGE, TOTAL_GISTS_COUNT } from "../../../types/common";
+import { APP_INITIAL_STATE } from "../../../__mocks__/app";
 import { checkStarStatus, createGist, deleteGist, fetchGists, fetchSingleGist, forkGist, starGist, updateGist } from "../../thunks/app";
-import { IGist } from "../../types/app";
 
-export interface IAppState {
-  page: number;
-  per_page: number;
-  total_gists: number;
-  gist_view: GIST_VIEW;
-  gists: Array<IGist> | null;
-  selectedGist: IGist | null;
-  client_id?: string;
-  redirect_uri?: string;
-  validationStates: {
-    message?: string;
-    isLoading: boolean;
-    isSuccess: boolean;
-    isError: boolean;
-  }
-}
-
-export const INITIAL_STATE: IAppState = { 
-  page: INITIAL_PAGE, 
-  per_page: PER_PAGE, 
-  total_gists: TOTAL_GISTS_COUNT,
-  gist_view: GIST_VIEW.LIST,
-  gists: null,
-  selectedGist: null,
-  client_id: process.env.REACT_APP_CLIENT_ID,
-  redirect_uri: process.env.REACT_APP_REDIRECT_URI,
-  validationStates: {
-    message: '',
-    isLoading: false,
-    isSuccess: false,
-    isError: false,
-  }
-};
+export const INITIAL_STATE = APP_INITIAL_STATE
 
 export const slice = createSlice({
   name: 'app',
