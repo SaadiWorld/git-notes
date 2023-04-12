@@ -65,7 +65,6 @@ describe('UserMenu component', () => {
     expect(localStorage.clear).toHaveBeenCalled();
 
     const authStateAfterClear = store.getState().auth;
-    console.log('jaaaaaaaaaaaaaaaaaaaani 0 bro2', authStateAfterClear)
     expect(authStateAfterClear.token).toEqual(AUTH_INITIAL_STATE.token);
     expect(authStateAfterClear.user).toEqual(AUTH_INITIAL_STATE.user);
     expect(JSON.stringify(authStateAfterClear)).toEqual(JSON.stringify(AUTH_INITIAL_STATE));

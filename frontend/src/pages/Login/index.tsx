@@ -1,10 +1,7 @@
-import axios from 'axios'
 import{ useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
-import { useAppDispatch } from '../store';
-import { getClientId, getRedirectUri } from '../store/selectors/app';
-import { attemptLogin } from '../store/thunks/auth';
+import { useLocation } from 'react-router-dom';
+import { useAppDispatch } from '../../store';
+import { attemptLogin } from '../../store/thunks/auth';
 
 function LoginPage() {
   const dispatch = useAppDispatch();
