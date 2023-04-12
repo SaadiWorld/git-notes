@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import Alert from '../components/Alerts/GenericAlert';
-import Loader from '../components/Loader';
-import useScrollPosition from '../hooks/useScrollPosition';
-import { useAppDispatch } from '../store';
-import { getAppMessage, getIsAppError, getIsAppLoading, getSelectedGistDescription, getSelectedGistFiles, getSelectedGistFilesArray, getSelectedGistId } from '../store/selectors/app';
-import { resetSelectedGist } from '../store/slices/app';
-import { createGist, fetchSingleGist, updateGist } from '../store/thunks/app';
-import { IContent, IFiles } from '../store/types/app';
-import { ALERT_VARIANTS } from '../types/common';
-import { getRandomFileName, isEverythingUnique } from '../utils/functions';
+import Alert from '../../components/Alerts/GenericAlert';
+import GistFile from '../../components/GistFile';
+import Loader from '../../components/Loader';
+import useScrollPosition from '../../hooks/useScrollPosition';
+import { useAppDispatch } from '../../store';
+import { getAppMessage, getIsAppError, getIsAppLoading, getSelectedGistDescription, getSelectedGistFiles, getSelectedGistFilesArray, getSelectedGistId } from '../../store/selectors/app';
+import { resetSelectedGist } from '../../store/slices/app';
+import { createGist, fetchSingleGist, updateGist } from '../../store/thunks/app';
+import { IContent, IFiles } from '../../store/types/app';
+import { ALERT_VARIANTS } from '../../types/common';
+import { getRandomFileName, isEverythingUnique } from '../../utils/functions';
 
 export interface ICreateGistLocalState {
   description?: string;
@@ -136,10 +137,7 @@ function GistForm() {
     if (validateForm()) {
       setIsError(false)
       setErrorMessage('')
-      // console.log('local state', {
-      //   description,
-      //   ...groups
-      // })
+
       let filesObj: IFiles = {}
       for (const item of groups.files) {
         if (!item.filename) {
@@ -148,11 +146,7 @@ function GistForm() {
         const key = id && item.name ? item.name : item.filename
         filesObj[key] = { filename: item.filename, content: item.content };
       }
-      // console.log('payload', {
-      //     description,
-      //     public: groups.public,
-      //     files: { ...filesObj, ...filesMap }
-      //   })
+
       const payload = {
         description,
         public: groups.public,
@@ -205,29 +199,15 @@ function GistForm() {
             required
           />
 
-          {groups.files.map((group, index) => (
-            <div key={index} className="p-4 mb-10 rounded-md border-gray-400 border-solid border-[1px]">
-              <input
-                name="filename"
-                type="text"
-                placeholder="Filename including extension..."
-                className="input input-bordered w-full mb-3"
-                value={group.filename}
-                onChange={(e) => handleFileChange(e.target.name, e.target.value, index)}
-              />
-              <textarea
-                rows={10}
-                name="content"
-                placeholder="Content..."
-                className="textarea textarea-bordered textarea-md w-full mb-3"
-                value={group.content}
-                onChange={(e) => handleFileChange(e.target.name, e.target.value, index)}
-              />
-              {groups.files.length > 1 &&
-                <div className='flex justify-end'>
-                  <button type='button' className='btn btn-sm bg-red-700 text-white border-none' onClick={() => handleFileRemoval(index)}>Delete</button>
-                </div>}
-            </div>
+          {groups.files.map(({ filename, content }, index) => (
+            <GistFile
+              fileIndex={index}
+              fileName={filename}
+              content={content}
+              showDeleteBtn={groups.files.length > 1}
+              handleFileChange={handleFileChange}
+              handleFileRemoval={handleFileRemoval}
+            />
           ))}
 
           <div className='flex justify-between pb-10'>
