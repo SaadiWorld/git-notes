@@ -10,7 +10,7 @@ interface IGistFileProps {
 
 function GistFile({ fileIndex, fileName, content, showDeleteBtn, handleFileChange, handleFileRemoval }: IGistFileProps) {
   return (
-    <div className="p-4 mb-10 rounded-md border-gray-400 border-solid border-[1px]">
+    <div data-testid="file-form" className="p-4 mb-10 rounded-md border-gray-400 border-solid border-[1px]">
       <input
         name="filename"
         role="text"

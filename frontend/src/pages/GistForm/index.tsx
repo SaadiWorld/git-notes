@@ -170,14 +170,13 @@ function GistForm() {
     isFileAdded && setScrollPosition('add-file-btn', 'end')
   }, [isFileAdded, groups.files])
 
-
   return (
     <div className='h-full relative'>
       {isAppLoading && <Loader />}
       {isValidGist ?
-        <div className='my-5 mx-10'>
-          <div id="alert">
-            {isError && errorMessage && 
+        <div data-testid="gist-content" className='my-5 mx-10'>
+          {isError && errorMessage && 
+            <div data-testid="alert" id="alert">
               <Alert 
                 message={errorMessage} 
                 variant={ALERT_VARIANTS.ERROR}
@@ -186,8 +185,8 @@ function GistForm() {
                   setErrorMessage('');
                 }} 
               />
-            }
-          </div>
+            </div>
+          }
           <h2 className="text-lg font-bold mb-3">{`${id ? 'Edit' : 'Create'} Gist`}</h2>
           <input
             name="description"
@@ -201,6 +200,7 @@ function GistForm() {
 
           {groups.files.map(({ filename, content }, index) => (
             <GistFile
+              key={index}
               fileIndex={index}
               fileName={filename}
               content={content}
@@ -212,10 +212,10 @@ function GistForm() {
 
           <div className='flex justify-between pb-10'>
             <button id='add-file-btn' type='button' className='btn btn-sm bg-blue-900 text-white border-none' onClick={handleFileAddition}>Add File</button>
-            <button type='button' className='btn btn-sm bg-green-900 text-white border-none' onClick={handleGistAction}>{!id ? 'Create' : 'Update'}</button>
+            <button data-testid="submit-btn" type='button' className='btn btn-sm bg-green-900 text-white border-none' onClick={handleGistAction}>{!id ? 'Create' : 'Update'}</button>
           </div>
         </div> :
-        <div className="flex h-10 justify-center items-center">{appMessage}</div>
+        <div data-testid="error-message" className="flex h-10 justify-center items-center">{appMessage}</div>
       }
     </div>
   )
