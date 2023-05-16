@@ -1,3 +1,9 @@
+// INTERFACES
+export interface IIsAuthenticatedProps {
+  isAuthenticated: boolean;
+}
+
+// ENUMS
 export enum GIST_TYPE {
   USER = 'user',
   PUBLIC= 'public',

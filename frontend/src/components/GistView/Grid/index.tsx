@@ -8,19 +8,19 @@ function Grid() {
   const navigate = useNavigate();
   const gists = useSelector(getGists);
   return (
-    <div className="gap-5 lg:grid-cols-3 grid grid-cols-1 sm:grid-cols-2">
-      { gists?.map(gist=> (
+    <div data-testid='grid-view' className="gap-5 lg:grid-cols-3 grid grid-cols-1 sm:grid-cols-2">
+      { gists?.map(({id, owner: { avatar_url, login }, files, updated_at}) => (
         <div
-          key={gist.id}
-          onClick={() => navigate(`/gist/${gist.id}`)}
+          key={id}
+          onClick={() => navigate(`/gist/${id}`)}
           className='cursor-pointer'
         >
           <Card
-            id={gist.id}
-            avatar={gist.owner.avatar_url}
-            ownerName={gist.owner.login}
-            time={`${formatDistanceToNow(new Date(gist.updated_at))} ago`}
-            fileName={Object.keys(gist.files).toString()}
+            id={id}
+            avatar={avatar_url}
+            ownerName={login}
+            time={`${formatDistanceToNow(new Date(updated_at))} ago`}
+            fileName={Object.keys(files).toString()}
           />
         </div>
       ))}

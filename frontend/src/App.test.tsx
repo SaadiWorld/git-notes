@@ -1,9 +1,7 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
+Element.prototype.scrollIntoView = jest.fn();
 
-test('renders learn react link', () => {
+test('renders react app', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
 });

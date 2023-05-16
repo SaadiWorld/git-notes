@@ -2,9 +2,7 @@ import { AxiosError } from "axios";
 import { AppService, ICreateGistRequest } from "../../../services/app";
 import { IResponseData, prepareErrorResponseMessage } from "../helpers";
 import { GIST_TYPE, TOTAL_GISTS_COUNT } from "../../../types/common";
-import { getAppPerPage } from "../../selectors/app";
-import { getUserTotalGistsCount } from "../../selectors/auth";
-import { createAppAsyncThunk } from "../settings";
+import { createAppAsyncThunk } from "../../appAsyncThunk";
 
 const appService = new AppService();
 
@@ -27,7 +25,7 @@ export const fetchGists = createAppAsyncThunk(
   "app/fetchGists", 
   async ({ gistType, page }: IFetchGists, thunkAPI) => {
     try {
-      const per_page = getAppPerPage(thunkAPI.getState());
+      const per_page = thunkAPI.getState().app.per_page;
       const isUserGists = gistType === GIST_TYPE.USER;
       const isUserStarredGists = gistType === GIST_TYPE.STARRED;
       const { data } = isUserGists ?
@@ -35,7 +33,7 @@ export const fetchGists = createAppAsyncThunk(
         isUserStarredGists ?
         await appService.fetchUserStarredGists() :
         await appService.fetchPublicGists({ page, per_page });
-      const userGistsCount = getUserTotalGistsCount(thunkAPI.getState());
+      const userGistsCount = thunkAPI.getState().auth.user?.public_gists ?? 0;
       return thunkAPI.fulfillWithValue({ gists: data, total_gists: isUserGists ? userGistsCount: isUserStarredGists ? 0 : TOTAL_GISTS_COUNT })
     } catch (error) {
       return thunkAPI.rejectWithValue(prepareErrorResponseMessage(error as AxiosError<IResponseData>))

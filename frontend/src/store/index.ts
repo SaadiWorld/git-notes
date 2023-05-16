@@ -1,15 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, PreloadedState } from '@reduxjs/toolkit'
 import rootReducer from './slices'
 import { useDispatch } from 'react-redux'
 
-const store = configureStore({
-  reducer: rootReducer,
-  devTools: true,
-  // middleware: middlewares
-})
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    devTools: true,
+    // middleware: middlewares
+    preloadedState
+  })
+}
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+const store = setupStore();
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']
 export const useAppDispatch: () => AppDispatch = useDispatch
 
 export default store

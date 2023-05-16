@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { AuthService } from "../../../services/auth";
+import { createAppAsyncThunk } from "../../appAsyncThunk";
 import { IResponseData, prepareErrorResponseMessage } from "../helpers";
-import { createAppAsyncThunk } from "../settings";
 
 const authService = new AuthService();
 

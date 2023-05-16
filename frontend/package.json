@@ -35,7 +35,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coverage": "yarn test --coverage --watchAll",
+    "circular-dep": "yarn run dpdm --no-warning --no-tree ./src/index.tsx"
   },
   "eslintConfig": {
     "extends": [
@@ -59,7 +61,18 @@
     "@types/lodash.get": "^4.4.7",
     "@types/react-table": "^7.7.14",
     "autoprefixer": "^10.4.13",
+    "dpdm": "^3.13.0",
+    "msw": "^1.2.1",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    },
+    "collectCoverageFrom": [
+      "src/components/**/*.{jsx,tsx}",
+      "src/pages/**/*.{jsx,tsx}"
+    ]
   }
 }
